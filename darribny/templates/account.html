@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+<div class="jumbotron">
+    <h1>Welcome to the pasge for {{current_user.username}}</h1>
+    <img src="{{url_for('static',filename='profile_pics/'+current_user.profile_image)}}" alt="">
+</div>
+
+<div class="container">
+    <form method="POST">
+        {{form.hidden_tag()}}
+
+        {{form.username.label}}{{form.username}}
+
+        {{form.email.label}}{{form.email}}
+
+        {{form.picture.label}}{{form.picture}}
+
+        {{form.submit}}
+    </form>
+</div>
+{% endblock content %}

@@ -6,24 +6,35 @@ from flask_login import LoginManager
 
 app = Flask(__name__ )
 
+app.config['SECRET_KEY'] = 'mysecret'
+
 ##########################
 #### DATABASE SETUP ######
 ##########################
-SQLALCHEMY_DATABASE_URI = 'postgres://hatimalattas@localhost:5432/darribny'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config.from_object('config')
 db = SQLAlchemy(app)
-Migrate(app,db)
+migrate = Migrate(app, db)
 
 ###########################
-### LOGIN CONFIGS ########
-##########################
+#### LOGIN CONFIGS #######
+#########################
+
 login_manager = LoginManager()
-login_manager.login_views = 'users.login'
+
+# We can now pass in our app to the login manager
+login_manager.init_app(app)
+
+# Tell users what view to go to when they need to login.
+login_manager.login_view = "users.login"
+
+
+##################################################
 
 
 from darribny.core.views import core
+from darribny.users.views import users
 from darribny.error_pages.handlers import error_pages
 
 app.register_blueprint(core)
+app.register_blueprint(users)
 app.register_blueprint(error_pages)

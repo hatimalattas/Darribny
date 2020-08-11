@@ -1,19 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
 
-   <!-- Custom fonts for this template -->
-   <link href="../static/vendor/fontawesome-free/css/all.css" rel="stylesheet">
-   <link href="../static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template -->
+    <link
+      href="../static/vendor/fontawesome-free/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/vendor/simple-line-icons/css/simple-line-icons.css"
+      rel="stylesheet"
+      type="text/css"
+    />
 
     <!-- CSS Stylesheet -->
-    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
 
     <title>Darribny</title>
   </head>
@@ -21,41 +36,63 @@
   <body>
     <section id="navigation">
       <div class="container">
-
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          <a class="navbar-brand" href="{{url_for('core.index')}}">Darribny</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="{{ url_for('core.index') }}"
+            >Darribny</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for('core.info')}}">About Us</a>
+                <a class="nav-link" href="{{ url_for('core.info') }}"
+                  >About Us</a
+                >
+              </li>
+
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('users.logout') }}"
+                  >Log Out</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Log Out</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Account</a>
+                <a class="nav-link" href="{{ url_for('users.account') }}"
+                  >Account</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Book a Trainer</a>
               </li>
+
+              {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Log In</a>
+                <a class="nav-link" href="{{ url_for('users.login') }}"
+                  >Log In</a
+                >
               </li>
               <li class="nav-item">
-                <a class="btn btn-primary" href="#">Get Started</a>
+                <a class="btn btn-primary" href="{{ url_for('users.register') }}"
+                  >Get Started</a
+                >
               </li>
+              {% endif %}
             </ul>
           </div>
         </nav>
       </div>
     </section>
-    {% block content %}
-      
-    {% endblock content %}
+    {% block content %} {% endblock content %}
     <!-- Footer -->
     <footer class="footer bg-light">
       <div class="container">
@@ -78,7 +115,9 @@
                 <a href="#">Privacy Policy</a>
               </li>
             </ul>
-            <p class="text-muted small mb-4 mb-lg-0">&copy; Darribny 2020. All Rights Reserved.</p>
+            <p class="text-muted small mb-4 mb-lg-0">
+              &copy; Darribny 2020. All Rights Reserved.
+            </p>
           </div>
           <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
             <ul class="list-inline mb-0">
@@ -102,11 +141,23 @@
         </div>
       </div>
     </footer>
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
