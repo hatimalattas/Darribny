@@ -17,6 +17,32 @@ h6 {
   padding: 0% 6%;
 }
 
+.login-container {
+  margin-top: 150px;
+  margin-bottom: 150px;
+  text-align: left;
+}
+
+li {
+  margin-bottom: 10px;
+  list-style-type: none;
+}
+
+.icon{
+  height: 50px;
+  width: 50px;
+}
+
+.ul-nav {
+  align-items: center;
+}
+
+.showcases-margin {
+  margin-bottom: 40px;
+}
+
+/* Navigation */
+
 .navbar-brand {
   font-family: "Ubuntu";
   font-size: 2.5rem;
@@ -34,9 +60,6 @@ h6 {
 
 /* Buttons */
 
-.nav-btn {
-  margin-top: 3px;
-}
 
 /* Title Section */
 header.masthead {
