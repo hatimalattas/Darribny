@@ -1,5 +1,6 @@
 body {
-  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat";
+  text-align: center;
 }
 h1,
 h2,
@@ -7,9 +8,37 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-family: "Montserrat-Bold";
 }
+
+/* Containers */
+
+.container-fluid{
+  padding: 0% 6%;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: "Montserrat-Light";
+}
+
+/* Buttons */
+
+.nav-btn {
+  margin-top: 3px;
+}
+
+/* Title Section */
 header.masthead {
   position: relative;
   background-color: #343a40;

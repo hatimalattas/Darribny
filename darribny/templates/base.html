@@ -30,89 +30,110 @@
     <!-- CSS Stylesheet -->
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
 
+    <!-- Google fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet">
+
     <title>Darribny</title>
   </head>
 
   <body>
-    <section id="navigation">
-      <div class="container">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white">
-          <a class="navbar-brand" href="{{ url_for('core.index') }}"
-            >Darribny</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('core.info') }}"
-                  >About Us</a
-                >
-              </li>
+    <!-- Navigation -->
 
-              {% if current_user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('users.logout') }}"
-                  >Log Out</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('users.account') }}"
-                  >Account</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Book a Trainer</a>
-              </li>
+    <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand text-white" href="{{ url_for('core.index') }}"
+          >Darribny</a
+        >
 
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('users.login') }}"
-                  >Log In</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="btn btn-primary" href="{{ url_for('users.register') }}"
-                  >Get Started</a
-                >
-              </li>
-              {% endif %}
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </section>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('core.info') }}"
+                >About Us</a
+              >
+            </li>
+
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('users.logout') }}"
+                >Log Out</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-light"
+                href="{{ url_for('users.account') }}"
+                >Account</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="#">Book a Trainer</a>
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{{ url_for('users.login') }}"
+                >Log In</a
+              >
+            </li>
+            <li class="nav-item ml-3">
+              <a
+                class="btn btn-warning text-light-60 nav-btn"
+                href="{{ url_for('users.register') }}"
+                >Get Started</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+    </nav>
     {% block content %} {% endblock content %}
     <!-- Footer -->
-    <footer class="footer bg-light">
+    <footer class="footer bg-dark">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
             <ul class="list-inline mb-2">
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a class="text-light" href="#">About</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a class="text-light" href="#">Contact</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <a class="text-light" href="#">Terms of Use</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
+                <a class="text-light" href="#">Privacy Policy</a>
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">
@@ -123,17 +144,17 @@
             <ul class="list-inline mb-0">
               <li class="list-inline-item mr-3">
                 <a href="#">
-                  <i class="fab fa-facebook fa-2x fa-fw"></i>
+                  <i class="fab fa-facebook fa-2x fa-fw text-light"></i>
                 </a>
               </li>
               <li class="list-inline-item mr-3">
                 <a href="#">
-                  <i class="fab fa-twitter-square fa-2x fa-fw"></i>
+                  <i class="fab fa-twitter-square fa-2x fa-fw text-light"></i>
                 </a>
               </li>
               <li class="list-inline-item">
                 <a href="#">
-                  <i class="fab fa-instagram fa-2x fa-fw"></i>
+                  <i class="fab fa-instagram fa-2x fa-fw text-light"></i>
                 </a>
               </li>
             </ul>
