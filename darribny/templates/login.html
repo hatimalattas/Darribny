@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% block content %}
+{% from "_render_field.html" import render_field %}
 
 <div class="container login-container">
 
@@ -7,13 +8,11 @@
         {{form.hidden_tag()}}
 
         <div class="form-group">
-            {{ form.email.label(class="form-group") }}
-            {{ form.email(class="form-control") }}
+            {{ render_field(form.email) }}
         </div>
 
         <div class="form-group">
-            {{ form.password.label(class="form-group") }}
-            {{ form.password(class="form-control") }}
+            {{ render_field(form.password) }}
         </div>
 
         <div class="form-group">

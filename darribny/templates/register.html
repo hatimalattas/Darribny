@@ -1,69 +1,71 @@
-
 {% extends 'base.html' %} {% block content %}
+{% from "_render_field.html" import render_field %}
 <div class="container login-container">
-    
-        <form method="POST">
-            {{form.hidden_tag()}}
-    
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form.email.label(class="form-group") }}
-                    {{ form.email(class="form-control") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.username.label(class="form-group") }}
-                    {{ form.username(class="form-control") }}
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form.first_name.label(class="form-group") }}
-                    {{ form.first_name(class="form-control") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.last_name.label(class="form-group") }}
-                    {{ form.last_name(class="form-control") }}
-                </div>
-            </div>
+  <form method="POST">
+    {{ form.hidden_tag() }}
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form.password.label(class="form-group") }}
-                    {{ form.password(class="form-control") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.pass_confirm.label(class="form-group") }}
-                    {{ form.pass_confirm(class="form-control") }}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form.mobile.label(class="form-group") }}
-                    {{ form.mobile(class="form-control") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.city.label(class="form-group") }}
-                    {{ form.city(class="form-control") }}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form.gender.label(class="form-group") }}
-                    {{ form.gender(class="form-control") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.birthdate.label(class="form-group") }}
-                    {{ form.birthdate(class="form-control") }}
-                </div>
-            </div>
-    
-            <div class="form-group">
-                {{ form.submit(class="btn btn-warning btn-lg") }}
-            </div>    
-        </form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+          {{ render_field(form.email) }}
+      </div>
+      <div class="form-group col-md-6">
+        {{ render_field(form.username) }}
+      </div>
     </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        {{ render_field(form.first_name) }}
+
+      </div>
+      <div class="form-group col-md-6">
+        {{ render_field(form.last_name) }}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        {{ render_field(form.password) }}
+      </div>
+      <div class="form-group col-md-6">
+        {{ render_field(form.pass_confirm) }}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        {{ render_field(form.mobile) }}
+      </div>
+
+      <div class="form-group col-md-6">
+        {{ render_field(form.city) }}
+      </div>
+    </div>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-6">
+        {{ render_field(form.gender) }}
+      </div>
+
+      <div class="form-group col-md-6">
+        {{ render_field(form.birthdate) }}
+      </div>
+      
+    </div>
+
+    <div class="form-group">
+      {{ form.recaptcha }}
+      {% for error in form.recaptcha.errors%}
+      <li style="color: red;">{{ error }}</li>
+      {% endfor %}
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-warning btn-lg") }}
+    </div>
+
+  </form>
+</div>
     
 {% endblock content %}
