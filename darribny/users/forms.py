@@ -40,7 +40,7 @@ class RegistrationForm(FlaskForm):
 
     username = StringField('Username', validators=[DataRequired(message='Username is required!')])
 
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!'), Length(min=8, max=80, message='Password must be between 8 and 80 characters long!')])
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')])
 
     pass_confirm = PasswordField('Confirm password', validators=[DataRequired()])
 
@@ -62,15 +62,15 @@ class RegistrationForm(FlaskForm):
 class UpdateUserForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
     username = StringField('Username', validators=[DataRequired()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
-    def validate_email(self, field):
+    def check_email(self, field):
         # Check if not None for that user email!
         if Trainee.query.filter_by(email=field.data).first():
             raise ValidationError('Your email has been registered already!')
 
-    def validate_username(self, field):
+    def check_username(self, field):
         # Check if not None for that username!
         if Trainee.query.filter_by(username=field.data).first():
             raise ValidationError('Sorry, that username is taken!')
