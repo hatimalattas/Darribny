@@ -55,13 +55,10 @@ def login():
             # So let's now check if that next exists, otherwise we'll go to
             # the welcome page.
             if next == None or not next[0]=='/':
-                next = url_for('core.index')
+                next = url_for('users.dashboard')
 
             return redirect(next)
     return render_template('login.html', form=form)
-
-
-
 
 @users.route("/logout")
 def logout():
@@ -95,9 +92,13 @@ def account():
     profile_image = url_for('static', filename='profile_pics/' + current_user.profile_image)
     return render_template('account.html', profile_image=profile_image, form=form)
 
+@users.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
 
 @users.route("/<username>")
-def user_posts(username):
+def user_reservations(username):
     page = request.args.get('page', 1, type=int)
     trainee = Trainee.query.filter_by(username=username).first_or_404()
     reservations = Reservation.query.filter_by(trainee=trainee).order_by(Reservation.date.desc()).paginate(page=page, per_page=5)

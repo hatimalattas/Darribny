@@ -75,25 +75,22 @@
           <ul class="navbar-nav ml-auto ul-nav">
             <li class="nav-item my-auto">
               <a class="nav-link text-light" href="{{ url_for('core.info') }}"
-                >About Us</a
+                >About</a
               >
             </li>
 
             {% if current_user.is_authenticated %}
-            <li class="nav-item my-auto">
-              <a class="nav-link text-light" href="{{ url_for('users.logout') }}"
-                >Log Out</a
-              >
-            </li>
-            <li class="nav-item my-auto">
-              <a
-                class="nav-link text-light"
-                href="{{ url_for('users.account') }}"
-                >Account</a
-              >
-            </li>
-            <li class="nav-item my-auto">
-              <a class="nav-link text-light" href="#">Book a Trainer</a>
+            <li class="nav-item dropdown my-auto">
+              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{current_user.first_name}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item text-dark" href="{{ url_for('users.dashboard') }}">Dashboard</a>
+                <a class="dropdown-item text-dark" href="#">Profile</a>
+                <a class="dropdown-item text-dark" href="{{ url_for('users.account') }}">Account</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-dark" href="{{ url_for('users.logout') }}">Logout</a>
+              </div>
             </li>
 
             {% else %}
@@ -113,6 +110,17 @@
           </ul>
         </div>
     </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+
     {% block content %} {% endblock content %}
     <!-- Footer -->
     <footer class="footer bg-dark">
