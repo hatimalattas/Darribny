@@ -26,7 +26,7 @@ def register():
 
         db.session.add(trainee)
         db.session.commit()
-        flash('Thanks for registering! Now you can login!')
+        flash('Thanks for registering! Now you can login!', 'success')
         return redirect(url_for('users.login'))
     return render_template('register.html', form=form)
 
@@ -34,30 +34,31 @@ def register():
 def login():
 
     form = LoginForm()
+
     if form.validate_on_submit():
         # Grab the user from our User Models table
         trainee = Trainee.query.filter_by(email=form.email.data).first()
-
         # Check that the user was supplied and the password is right
         # The verify_password method comes from the User object
         # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
+        if trainee:
+            if trainee.check_password(form.password.data) and trainee is not None:
+                #Log in the user
+                login_user(trainee)
+                flash('Logged in successfully.', 'success')
 
-        if trainee.check_password(form.password.data) and trainee is not None:
-            #Log in the user
+                # If a user was trying to visit a page that requires a login
+                # flask saves that URL as 'next'.
+                next = request.args.get('next')
 
-            login_user(trainee)
-            flash('Logged in successfully.')
+                # So let's now check if that next exists, otherwise we'll go to
+                # the welcome page.
+                if next == None or not next[0]=='/':
+                    next = url_for('users.dashboard')
 
-            # If a user was trying to visit a page that requires a login
-            # flask saves that URL as 'next'.
-            next = request.args.get('next')
-
-            # So let's now check if that next exists, otherwise we'll go to
-            # the welcome page.
-            if next == None or not next[0]=='/':
-                next = url_for('users.dashboard')
-
-            return redirect(next)
+                return redirect(next)
+        flash('Wrong email or password.', 'error')
+        
     return render_template('login.html', form=form)
 
 @users.route("/logout")
@@ -82,7 +83,7 @@ def account():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('User Account Updated')
+        flash('User Account Updated', 'success')
         return redirect(url_for('users.account'))
 
     elif request.method == 'GET':

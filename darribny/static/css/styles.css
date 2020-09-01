@@ -11,6 +11,22 @@ h6 {
   font-family: "Montserrat-Bold";
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 10rem;   
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 11rem;           
+}
+
 /* Containers */
 
 .container-fluid{
@@ -18,8 +34,8 @@ h6 {
 }
 
 .login-container {
-  margin-top: 150px;
-  margin-bottom: 150px;
+  margin-top: 75px;
+  margin-bottom: 70px;
   text-align: left;
 }
 

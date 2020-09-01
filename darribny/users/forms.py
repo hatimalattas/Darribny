@@ -12,9 +12,6 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from darribny.models import Trainee
 
-
-
-
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(message='Email is required!'),Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -26,7 +23,7 @@ class RegistrationForm(FlaskForm):
 
     last_name = StringField('Last Name', validators=[DataRequired()])
 
-    mobile = StringField('Mobile', validators=[DataRequired(), Length(min=10, max=10, message='Please enter a valid mobile number!')], render_kw={"placeholder": "05xxxxxxxx"})
+    mobile = StringField('Mobile', validators=[DataRequired()], render_kw={"placeholder": "05xxxxxxxx"})
 
     gender = SelectField('Gender',
                           choices=[('NA','Select your gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Choose your gender!')])

@@ -52,124 +52,141 @@
   </head>
 
   <body>
-    <!-- Navigation -->
+    <div id="page-container">
+      <div id="content-wrap">        
+        <!-- Navigation -->
+        <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand text-white" href="{{ url_for('core.index') }}"
+              >Darribny</a
+            >
+    
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto ul-nav">
+                <li class="nav-item my-auto">
+                  <a class="nav-link text-light" href="{{ url_for('core.info') }}"
+                    >About</a
+                  >
+                </li>
+    
+                {% if current_user.is_authenticated %}
+                <li class="nav-item dropdown my-auto">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{current_user.first_name}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item text-dark" href="{{ url_for('users.dashboard') }}">Dashboard</a>
+                    <a class="dropdown-item text-dark" href="#">Profile</a>
+                    <a class="dropdown-item text-dark" href="{{ url_for('users.account') }}">Account</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-dark" href="{{ url_for('users.logout') }}">Logout</a>
+                  </div>
+                </li>
+    
+                {% else %}
+                <li class="nav-item my-auto">
+                  <a class="nav-link text-light" href="{{ url_for('users.login') }}"
+                    >Log In</a
+                  >
+                </li>
+                <li class="nav-item my-auto">
+                  <a
+                    class="btn btn-warning text-light-60"
+                    href="{{ url_for('users.register') }}"
+                    >Get Started</a
+                  >
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+        </nav>
+    
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          {% if category == 'success' %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
 
-    <nav class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand text-white" href="{{ url_for('core.index') }}"
-          >Darribny</a
-        >
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto ul-nav">
-            <li class="nav-item my-auto">
-              <a class="nav-link text-light" href="{{ url_for('core.info') }}"
-                >About</a
-              >
-            </li>
-
-            {% if current_user.is_authenticated %}
-            <li class="nav-item dropdown my-auto">
-              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{current_user.first_name}}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item text-dark" href="{{ url_for('users.dashboard') }}">Dashboard</a>
-                <a class="dropdown-item text-dark" href="#">Profile</a>
-                <a class="dropdown-item text-dark" href="{{ url_for('users.account') }}">Account</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item text-dark" href="{{ url_for('users.logout') }}">Logout</a>
+          {% if category == 'error' %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    
+        {% block content %} {% endblock content %}
+        <!-- Footer -->
+        <footer id="footer" class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+                <ul class="list-inline mb-2">
+                  <li class="list-inline-item">
+                    <a class="text-light" href="#">About</a>
+                  </li>
+                  <li class="list-inline-item">&sdot;</li>
+                  <li class="list-inline-item">
+                    <a class="text-light" href="#">Contact</a>
+                  </li>
+                  <li class="list-inline-item">&sdot;</li>
+                  <li class="list-inline-item">
+                    <a class="text-light" href="#">Terms of Use</a>
+                  </li>
+                  <li class="list-inline-item">&sdot;</li>
+                  <li class="list-inline-item">
+                    <a class="text-light" href="#">Privacy Policy</a>
+                  </li>
+                </ul>
+                <p class="text-muted small mb-4 mb-lg-0">
+                  &copy; Darribny 2020. All Rights Reserved.
+                </p>
               </div>
-            </li>
-
-            {% else %}
-            <li class="nav-item my-auto">
-              <a class="nav-link text-light" href="{{ url_for('users.login') }}"
-                >Log In</a
-              >
-            </li>
-            <li class="nav-item my-auto">
-              <a
-                class="btn btn-warning text-light-60"
-                href="{{ url_for('users.register') }}"
-                >Get Started</a
-              >
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-    </nav>
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class=flashes>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-    {% endwith %}
-
-    {% block content %} {% endblock content %}
-    <!-- Footer -->
-    <footer class="footer bg-dark">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-            <ul class="list-inline mb-2">
-              <li class="list-inline-item">
-                <a class="text-light" href="#">About</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a class="text-light" href="#">Contact</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a class="text-light" href="#">Terms of Use</a>
-              </li>
-              <li class="list-inline-item">&sdot;</li>
-              <li class="list-inline-item">
-                <a class="text-light" href="#">Privacy Policy</a>
-              </li>
-            </ul>
-            <p class="text-muted small mb-4 mb-lg-0">
-              &copy; Darribny 2020. All Rights Reserved.
-            </p>
+              <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+                <ul class="list-inline mb-0">
+                  <li class="list-inline-item mr-3">
+                    <a href="#">
+                      <i class="fab fa-facebook fa-2x fa-fw text-light"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item mr-3">
+                    <a href="#">
+                      <i class="fab fa-twitter-square fa-2x fa-fw text-light"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-instagram fa-2x fa-fw text-light"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fab fa-facebook fa-2x fa-fw text-light"></i>
-                </a>
-              </li>
-              <li class="list-inline-item mr-3">
-                <a href="#">
-                  <i class="fab fa-twitter-square fa-2x fa-fw text-light"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fab fa-instagram fa-2x fa-fw text-light"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        </footer>
       </div>
-    </footer>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
