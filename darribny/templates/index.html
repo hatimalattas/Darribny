@@ -5,27 +5,17 @@
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
-      <div class="col-xl-9 mx-auto">
+      <div class="col-xl-9 mx-auto text-center">
         <h1 class="mb-2">Personal Training.</h1>
         <h1 class="mb-5">Indoors or Outdoors.</h1>
-      </div>
-      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-        <form>
-          <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">
-              <input
-                type="email"
-                class="form-control form-control-lg"
-                placeholder="Enter your email..."
-              />
-            </div>
-            <div class="col-12 col-md-3">
-              <button type="submit" class="btn btn-block btn-lg btn-warning">
-                Sign up!
-              </button>
-            </div>
-          </div>
-        </form>
+        <a
+          class="btn btn-warning text-light-60"
+          href="{{ url_for('users.register') }}"
+        >
+          <button type="submit" class="my-btn btn btn-lg btn-warning">
+            Sign up!
+          </button>
+        </a>
       </div>
     </div>
   </div>
@@ -75,7 +65,7 @@
     <div class="row no-gutters">
       <div
         class="col-lg-6 order-lg-2 text-white showcase-img"
-        style="background-image: url('../static/img/bg-showcase-1.jpg');"
+        style="background-image: url('../static/img/bg-showcase-1.jpg')"
       ></div>
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
         <h2>All Levels Welcome</h2>
@@ -88,7 +78,7 @@
     <div class="row no-gutters">
       <div
         class="col-lg-6 text-white showcase-img"
-        style="background-image: url('../static/img/bg-showcase-2.jpg');"
+        style="background-image: url('../static/img/bg-showcase-2.jpg')"
       ></div>
       <div class="col-lg-6 my-auto showcase-text">
         <h2>Accomplish More in Less Time</h2>
@@ -103,37 +93,48 @@
     <div class="row no-gutters">
       <div
         class="col-lg-6 order-lg-2 text-white showcase-img"
-        style="background-image: url('../static/img/bg-showcase-3.jpg');"
+        style="background-image: url('../static/img/bg-showcase-3.jpg')"
       ></div>
       <div class="col-lg-6 order-lg-1 my-auto showcase-text">
         <h2 class="showcases-margin">Our Promise</h2>
 
         <div class="row showcases-margin">
           <div class="col-lg-6">
-            <li class="my-auto">Safety is Our Priority: All Our Trainers are vetted, certified and insured.</li>
+            <li class="my-auto">
+              Safety is Our Priority: All Our Trainers are vetted, certified and
+              insured.
+            </li>
           </div>
           <div class="col-lg-6 my-auto">
-            <img class="icon" src="../static/icons/contract.svg" alt="">
+            <img class="icon" src="../static/icons/contract.svg" alt="" />
           </div>
         </div>
 
         <div class="row showcases-margin">
           <div class="col-lg-6 my-auto">
-            <img class="icon" src="../static/icons/money.svg" alt="">
+            <img class="icon" src="../static/icons/money.svg" alt="" />
           </div>
           <div class="col-lg-6 my-auto">
-            <li class="my-auto">Satisfaction Guaranteed: Or your money back after your first session.</li>
+            <li class="my-auto">
+              Satisfaction Guaranteed: Or your money back after your first
+              session.
+            </li>
           </div>
         </div>
 
         <div class="row showcases-margin">
           <div class="col-lg-6 my-auto">
-            <li class="my-auto">Seamless: Manage matching, billing & scheduling all in one place.</li>
+            <li class="my-auto">
+              Seamless: Manage matching, billing & scheduling all in one place.
+            </li>
           </div>
           <div class="col-lg-6 my-auto">
-            <img class="icon" src="../static/icons/customer-service.svg" alt="">
+            <img
+              class="icon"
+              src="../static/icons/customer-service.svg"
+              alt=""
+            />
           </div>
-
         </div>
       </div>
     </div>

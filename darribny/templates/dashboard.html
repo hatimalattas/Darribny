@@ -1,17 +1,103 @@
 {% extends 'base.html' %} {% block content %}
-<!-- <div class="container login-container">
+<div class="container-fluid bg-light my-container">
+  <div class="row">
+    <div class="col-lg-4">
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="card mx-auto d-block text-left">
+        <div class="card-header font-weight-bolder bg-dark text-light">Profile Info</div>
+        <div class="row">
+          <div class="col-8">
+            <img
+              src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+              class="card-img-top profile-pic span"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                {{current_user.first_name}} {{current_user.last_name}}
+              </h5>
+              <p class="card-text">@{{current_user.username}}</p>
+              <p class="card-text">This is my personal bio.</p>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card-body mw-100">
+              <a href="#" class="card-link mw-100">
+                <button type="button" class="btn btn-outline-warning">Edit Profile</button>
+
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      {% endfor %}
-      {% endif %}
     </div>
-{% endwith %} -->
+
+    <div class="col-lg-8">
+
+      <div class="card mx-auto d-block text-left">
+        <div class="card-header font-weight-bolder bg-dark text-light">Trainer Matches</div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mx-auto d-block text-left">
+              <img
+                src="../static/img/Trainer 1.jpg"
+                class="card-img-top profile-pic span"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Christina Bletko</h5>
+                <p class="card-text">@Christina</p>
+                <p class="card-text">
+                  I am passionate about health and fitness and enjoy helping
+                  others reach their goals.
+                </p>
+                <a href="#" class="btn btn-warning">Book a session</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card mx-auto d-block text-left">
+              <img
+                src="../static/img/Trainer 2.jpg"
+                class="card-img-top profile-pic span"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Laura Su</h5>
+                <p class="card-text">@Laura</p>
+                <p class="card-text">
+                  I'm an exercise scientist and strength & conditioning
+                  specialist.
+                </p>
+                <a href="#" class="btn btn-warning">Book a session</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card mx-auto d-block text-left">
+              <img
+                src="../static/img/Trainer 3.jpg"
+                class="card-img-top profile-pic span"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Kelly Clark</h5>
+                <p class="card-text">@Kelly</p>
+                <p class="card-text">
+                  I am an ACE Certified Personal Trainer, an ACE Group Fitness
+                  Instructor and have specialities in Nutrition.
+                </p>
+                <a href="#" class="btn btn-warning">Book a session</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-left">
+          <a href="#" class="card-link">View all trainer matches</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

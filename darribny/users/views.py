@@ -64,6 +64,7 @@ def login():
 @users.route("/logout")
 def logout():
     logout_user()
+    flash('Logged out successfully', 'success')
     return redirect(url_for('core.index'))
 
 

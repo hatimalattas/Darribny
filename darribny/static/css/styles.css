@@ -11,20 +11,57 @@ h6 {
   font-family: "Montserrat-Bold";
 }
 
+/* Profile picture */
+
+.profile-pic {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-pic:hover {
+  background-color: rgba(0,0,0,.5);
+  z-index: 10000;
+  color: #fff;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.profile-pic span {
+  display: inline-block;
+  padding-top: 4.5em;
+  padding-bottom: 4.5em;
+}
+
+form input[type="file"] {
+  display: none;
+  cursor: pointer;
+}
+
+/* CSS to make the footer sticks in the bottom */
 #page-container {
   position: relative;
   min-height: 100vh;
 }
 
 #content-wrap {
-  padding-bottom: 10rem;   
+  padding-bottom: 10.5rem;
 }
 
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 11rem;           
+  height: 10.5rem;
 }
 
 /* Containers */
@@ -35,8 +72,11 @@ h6 {
 
 .login-container {
   margin-top: 75px;
-  margin-bottom: 70px;
+  margin-bottom: 145px;
   text-align: left;
+}
+.my-container{
+  padding: 50px;
 }
 
 li {
@@ -75,7 +115,9 @@ li {
 }
 
 /* Buttons */
-
+.my-btn{
+  width: 400px;
+}
 
 /* Title Section */
 header.masthead {
