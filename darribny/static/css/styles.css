@@ -11,9 +11,23 @@ h6 {
   font-family: "Montserrat-Bold";
 }
 
+.alert{
+  margin-bottom: 0;
+}
+
 /* Profile picture */
 
-.profile-pic {
+.profile-pic{
+  height: 150px;
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.custom-card-body{
+  padding: 0;
+}
+
+/* .profile-pic {
   border-radius: 50%;
   height: 150px;
   width: 150px;
@@ -26,6 +40,8 @@ h6 {
   transition: all .3s ease;
   text-decoration: none;
   cursor: pointer;
+  margin-left: 10px;
+  margin-top: 3px;
 }
 
 .profile-pic:hover {
@@ -45,7 +61,105 @@ h6 {
 form input[type="file"] {
   display: none;
   cursor: pointer;
+} */
+
+/* button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+} */
+
+.custom-file-input {
+  color: transparent;
 }
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+}
+
+
+.input-file-container {
+  position: relative;
+  width: 225px;
+} 
+.js .input-file-trigger {
+  display: block;
+  padding: 14px 45px;
+  background: #39D2B4;
+  color: #fff;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+}
+.js .input-file {
+  position: absolute;
+  top: 0; left: 0;
+  width: 225px;
+  opacity: 0;
+  padding: 14px 0;
+  cursor: pointer;
+}
+.js .input-file:hover + .input-file-trigger,
+.js .input-file:focus + .input-file-trigger,
+.js .input-file-trigger:hover,
+.js .input-file-trigger:focus {
+  background: #34495E;
+  color: #39D2B4;
+}
+
+.file-return {
+  margin: 0;
+}
+.file-return:not(:empty) {
+  margin: 1em 0;
+}
+.js .file-return {
+  font-style: italic;
+  font-size: .9em;
+  font-weight: bold;
+}
+.js .file-return:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: normal;
+}
+
+
+
+
+
+
+/* Useless styles, just for demo styles */
+
+
 
 /* CSS to make the footer sticks in the bottom */
 #page-container {

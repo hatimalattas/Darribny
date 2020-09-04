@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-fluid bg-light my-container">
+  <div class="row">
+    <div class="col-xl-4">
+
+      <div class="card mx-auto d-block text-left">
+        <div class="card-header font-weight-bolder bg-dark text-light">Profile Info</div>
+        <div class="row">
+          <div class="col-8">
+            
+            <img
+              src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+              class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
+              alt="..."/>
+            <div class="card-body">
+              <h5 class="card-title">
+                {{current_user.first_name}} {{current_user.last_name}}
+              </h5>
+              <p class="card-text">@{{current_user.username}}</p>
+              <p class="card-text">This is my personal bio.</p>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card-body">
+              <a href="{{ url_for('users.account_trainer') }}" class="card-link btn btn-sm btn-outline-warning">Account Settings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-8">
+
+      <div class="card mx-auto d-block text-left">
+        <div class="card-header font-weight-bolder bg-dark text-light">Upcoming Reservations</div>
+
+        <div class="card-body text-left">
+          <h1>No Upcoming Reservations</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

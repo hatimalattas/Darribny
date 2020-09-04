@@ -1,33 +1,58 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %} {% from "_render_field.html"
+import render_field %}
 
-<div class="jumbotron">
-  <div align='center'>
-    <h1 >Welcome to the page for {{current_user.username}}</h1>
-    <img align='center' src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}">
-    <p>{{ current_user.email }}</p>
-  </div>
-</div>
-<div class="container">
-  <form  method="POST" action = "" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-      {{ form.username.label(class="form-group") }}
-      {{form.username(class='form-control')  }}
-    </div>
-    <div class="form-group">
-      {{ form.email.label(class="form-group") }}
-      {{form.email(class='form-control')  }}
-    </div>
-    <div class="form-group">
-      {{ form.picture.label(class="form-group") }}
-      {{ form.picture(class="form-control-file") }}
-    </div>
-    <div class="form-group">
-        {{ form.submit(class="btn btn-primary") }}
+<div class="container my-container">
+  <form method="POST" action = "" enctype="multipart/form-data">
+    <div class="card mx-auto d-block text-left">
+      <div class="card-header font-weight-bolder bg-dark text-light">
+        Account Settings
+      </div>
+      {{ form.hidden_tag() }}
+      <img
+        src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+        class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
+        alt="..."
+      />
+      <div class="form-row">
+      <div class="form-group col-3">
+        {{ form.picture(class="input-file") }}
+      </div>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">
+        </h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            {{ render_field(form.first_name) }}
+          </div>
+          <div class="form-group col-md-6">
+            {{ render_field(form.last_name) }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">{{ render_field(form.mobile) }}</div>
+
+          <div class="form-group col-md-6">{{ render_field(form.city) }}</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">{{ render_field(form.gender) }}</div>
+
+          <div class="form-group col-md-6">
+            {{ render_field(form.birthdate) }}
+          </div>
+        </div>
+
+        <div class="form-group">{{ form.recaptcha }}</div>
+
+        <div class="form-group">
+          {{ form.submit(class="btn btn-warning btn-lg") }}
+        </div>
+      </div>
     </div>
   </form>
-
 </div>
 
 {% endblock content %}

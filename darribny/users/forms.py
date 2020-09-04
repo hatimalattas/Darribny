@@ -28,6 +28,9 @@ class RegistrationForm(FlaskForm):
     gender = SelectField('Gender',
                           choices=[('NA','Select your gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Choose your gender!')])
 
+    role = SelectField('Role',
+                          choices=[('NA','Select your role'),('trainee', 'Trainee'), ('trainer', 'Trainer')], validators= [AnyOf(values=['trainee','trainer'], message='Choose your role!')])
+
     city = SelectField('City',
                           choices=[('NA','Select your city'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Choose your city!')])  
       
@@ -41,7 +44,7 @@ class RegistrationForm(FlaskForm):
 
     pass_confirm = PasswordField('Confirm password', validators=[DataRequired()])
 
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
 
     submit = SubmitField('Register!')
 
@@ -55,19 +58,20 @@ class RegistrationForm(FlaskForm):
         if Trainee.query.filter_by(username=field.data).first():
             raise ValidationError('Sorry, that username is taken!')
 
+    def validate_mobile(self, field):
+        # Check if not None for that username!
+        if len(field.data) != 10:
+            raise ValidationError('Invalid mobile number!')
+
 
 class UpdateUserForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(),Email()])
-    username = StringField('Username', validators=[DataRequired()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
-
-    def check_email(self, field):
-        # Check if not None for that user email!
-        if Trainee.query.filter_by(email=field.data).first():
-            raise ValidationError('Your email has been registered already!')
-
-    def check_username(self, field):
-        # Check if not None for that username!
-        if Trainee.query.filter_by(username=field.data).first():
-            raise ValidationError('Sorry, that username is taken!')
+    picture = FileField('', validators=[FileAllowed(['jpg', 'png'])])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    mobile = StringField('Mobile', validators=[DataRequired()], render_kw={"placeholder": "05xxxxxxxx"})
+    gender = SelectField('Gender',
+                          choices=[('NA','Select your gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Choose your gender!')])
+    city = SelectField('City',
+                          choices=[('NA','Select your city'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Choose your city!')])    
+    birthdate = DateField('Birthdate', format='%Y-%m-%d',validators=[DataRequired()])
+    submit = SubmitField('Save Changes')
