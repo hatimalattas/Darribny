@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from darribny import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from darribny.models import Trainee, Reservation
-from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm
+from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm, ReservationForm
 from darribny.users.picture_handler import add_profile_pic
 
 
@@ -33,7 +33,7 @@ def register():
             return redirect(url_for('users.login'))
         elif form.role.data == 'trainer':
             flash('Thanks for registering! Now you can login as trainer!', 'success')
-            return redirect(url_for('users.login'))
+            return redirect(url_for('users.login_trainer'))
 
     return render_template('register.html', form=form)
 
@@ -188,6 +188,8 @@ def dashboard():
     else:
         return 'Unauthorized'
 
+
+
 @users.route("/dashboard-trainer")
 @login_required
 def dashboard_trainer():
@@ -196,9 +198,17 @@ def dashboard_trainer():
     else:
         return 'Unauthorized'
 
-# @users.route("/<username>")
-# def user_reservations(username):
-#     page = request.args.get('page', 1, type=int)
-#     trainee = Trainee.query.filter_by(username=username).first_or_404()
-#     reservations = Reservation.query.filter_by(trainee=trainee).order_by(Reservation.date.desc()).paginate(page=page, per_page=5)
-#     return render_template('trainee_reservations.html', reservations=reservations, trainee=trainee)
+# int: makes sure that the trainer_id gets passed as in integer
+# instead of a string so we can look it up later.
+@users.route('/dashboard/<int:trainer_id>')
+@login_required
+def trainer(trainer_id):
+    # grab the requested blog post by id number or return 404
+    trainer = Trainee.query.filter_by(role='trainer', id=trainer_id).first()
+    return render_template('trainer-profile.html',first_name=trainer.first_name, last_name=trainer.last_name, profile_image=trainer.profile_image, username=trainer.username, birthdate=trainer.birthdate, gender=trainer.gender, city=trainer.city, mobile=trainer.mobile,id=trainer.id)
+
+# @users.route('/dashboard/<int:trainer_id>/reservation')
+# @login_required
+# def reservation(trainer_id):
+
+#     return render_template('create-reservation.html')

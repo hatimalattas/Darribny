@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (StringField, BooleanField, DateTimeField,
                      RadioField,SelectField,TextField,
                      TextAreaField,SubmitField,IntegerField,PasswordField)
-from wtforms.fields.html5 import DateField
+from wtforms.fields.html5 import DateField, DateTimeField
 from wtforms.validators import DataRequired,Email,EqualTo,AnyOf, NumberRange, Length
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
@@ -75,3 +75,10 @@ class UpdateUserForm(FlaskForm):
                           choices=[('NA','Select your city'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Choose your city!')])    
     birthdate = DateField('Birthdate', format='%Y-%m-%d',validators=[DataRequired()])
     submit = SubmitField('Save Changes')
+
+class ReservationForm(FlaskForm):
+    # no empty titles or text possible
+    # we'll grab the date automatically from the Model later
+    location = StringField('Location', validators=[DataRequired()])
+    start_time = DateField('Birthdate', format='%Y-%m-%d',validators=[DataRequired()])
+    submit = SubmitField('Confirm')

@@ -2,15 +2,15 @@
 <div class="container-fluid bg-light my-container">
   <div class="row">
     <div class="col-xl-4">
-      <div class="card mx-auto d-block text-left">
+      <div class="card text-left">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Profile Info
         </div>
         <div class="row">
-          <div class="col-8">
+          <div class="col-sm-8">
             <img
               src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
-              class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
+              class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1"
               alt="..."
             />
             <div class="card-body">
@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-sm-4">
             <div class="card-body">
               <a
                 href="{{ url_for('users.account') }}"
@@ -42,21 +42,21 @@
         </div>
         <div class="row">
           {% for trainer in trainers %}
-          <div class="col-lg-4">
-            <div class="card mx-auto d-block text-left m-md-3 p-md-3 w-100">
+          <div class="col-md-6 col-sm-12">
+            <div class="card mx-auto d-block text-left w-100">
               <img
                 src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
-                class="card-img-top rounded-circle profile-pic border border-warning"
+                class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1"
                 alt="..."
               />
-              <div class="card-body custom-card-body">
+              <div class="card-body">
                 <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
                 <p class="card-text">@{{ trainer.username }}</p>
                 <p class="card-text">
                   I am passionate about health and fitness and enjoy helping
                   others reach their goals.
                 </p>
-                <a href="#" class="btn btn-warning">Book a session</a>
+                <a href="{{ url_for('users.trainer', trainer_id=trainer.id) }}" class="btn btn-warning">View Profile</a>
               </div>
             </div>
           </div>
