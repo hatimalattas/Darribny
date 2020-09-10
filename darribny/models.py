@@ -26,7 +26,6 @@ class Trainee(db.Model,UserMixin):
     role = db.Column(db.String(64), nullable=False, default='trainee')
     price = db.Column(db.Integer,nullable=False, default=50)
     bio = db.Column(db.Text)
-
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)
 
     def __init__(self,email,username,password,birthdate, first_name, last_name, gender, city, mobile, role):
@@ -55,14 +54,16 @@ class Reservation(db.Model):
     trainees = db.relationship(Trainee)
     id = db.Column(db.Integer, primary_key=True)
     trainee_id = db.Column(db.Integer,db.ForeignKey('trainees.id'),nullable=False)
+    trainer_id = db.Column(db.Integer,nullable=False)
     location = db.Column(db.String(64), nullable=False)
-    start_time = db.Column(db.DateTime, nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False, unique=True)
 
-    def __init__(self,location,start_time,trainee_id):
+    def __init__(self,location,start_time,trainee_id, trainer_id):
         # self.date = date
         self.location = location
         self.start_time = start_time
         self.trainee_id = trainee_id
+        self.trainer_id = trainer_id
         # self.trainer_id = trainer_id
 
     def __repr__(self):

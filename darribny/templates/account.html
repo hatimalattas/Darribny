@@ -2,9 +2,15 @@
 import render_field %}
 
 <div class="container my-container">
-  <form method="POST" action = "" enctype="multipart/form-data">
+  <form method="POST" action="" enctype="multipart/form-data">
     <div class="card mx-auto d-block text-left">
       <div class="card-header font-weight-bolder bg-dark text-light">
+        <a
+          href="{{ url_for('users.dashboard') }}"
+          class=""
+          style="text-decoration: none"
+          ><i class="icon-arrow-left-circle mr-3 text-warning h5"></i
+        ></a>
         Account Settings
       </div>
       {{ form.hidden_tag() }}
@@ -14,14 +20,13 @@ import render_field %}
         alt="..."
       />
       <div class="form-row">
-      <div class="form-group col-3">
-        {{ form.picture(class="input-file") }}
-      </div>
+        <div class="form-group col-3">
+          {{ form.picture(class="input-file") }}
+        </div>
       </div>
 
       <div class="card-body">
-        <h5 class="card-title">
-        </h5>
+        <h5 class="card-title"></h5>
         <div class="form-row">
           <div class="form-group col-md-6">
             {{ render_field(form.first_name) }}

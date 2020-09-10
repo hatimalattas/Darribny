@@ -8,4 +8,4 @@ class ReservationForm(FlaskForm):
     # we'll grab the date automatically from the Model later
     location = StringField('Location', validators=[DataRequired()])
     start_time = DateField('Birthdate', format='%Y-%m-%d',validators=[DataRequired()])
-    submit = SubmitField('Confirm')
+    submit = SubmitField('')

@@ -4,14 +4,12 @@
   <div class="col-sm-6 text-left">
     <div class="card mt-3 mb-3">
       <div class="card-header font-weight-bolder bg-dark text-light">
-
         <a
-        href="{{ url_for('users.dashboard') }}"
-        class=""
-        style="text-decoration: none;"
-        ><i class="icon-arrow-left-circle mr-3 text-warning h5"></i
-          ></a
-      >
+          href="{{ url_for('users.dashboard') }}"
+          class=""
+          style="text-decoration: none"
+          ><i class="icon-arrow-left-circle mr-3 text-warning h5"></i
+        ></a>
         Trainer Profile
       </div>
       <img
@@ -24,32 +22,28 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
-          <img
-            class="icon-sm mr-2"
-            src="../static/icons/smartphone.svg"
-            alt=""
-          />
+          <i class="icon-screen-smartphone mr-3 text-warning h6"></i>
           {{ mobile }}
         </li>
         <li class="list-group-item">
-          <img class="icon-sm mr-2" src="../static/icons/pin.svg" alt="" /> {{
-          city }}
+          <i class="icon-location-pin mr-3 text-warning h6"></i>
+          {{ city }}
         </li>
         <li class="list-group-item">
-          <img class="icon-sm mr-2" src="../static/icons/gender.svg" alt="" />
+          <i class="icon-user mr-3 text-warning h6"></i>
           {{ gender }}
         </li>
         <li class="list-group-item">
-          <img
-            class="icon-sm mr-2"
-            src="../static/icons/birthday-cake.svg"
-            alt=""
-          />
+          <i class="icon-calendar mr-3 text-warning h6"></i>
           {{ birthdate.strftime('%d-%m-%Y') }}
         </li>
       </ul>
       <div class="card-body text-left">
-        <a href="" class="btn btn-lg btn-warning">Book Now!</a>
+        <a
+          href="{{ url_for('reservations.create', trainer_id=id) }}"
+          class="btn btn-lg btn-warning"
+          >Book Now!</a
+        >
       </div>
     </div>
   </div>

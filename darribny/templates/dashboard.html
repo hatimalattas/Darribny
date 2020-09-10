@@ -2,7 +2,7 @@
 <div class="container-fluid bg-light my-container">
   <div class="row">
     <div class="col-xl-4">
-      <div class="card text-left">
+      <div class="card text-left mb-3">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Profile Info
         </div>
@@ -36,6 +36,35 @@
     </div>
 
     <div class="col-xl-8">
+      {% if reservations %}
+      <div class="card mx-auto d-block text-left mb-3">
+        <div class="card-header font-weight-bolder bg-dark text-light">
+          Upcoming Reservations
+        </div>
+        <div class="row">
+          {% for reservation in reservations %}
+          <div class="col-md-6 col-sm-12">
+            <div class="card mx-auto d-block text-left w-100">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{ reservation.location }} {{ reservation.start_time }}
+                </h5>
+                <p class="card-text"></p>
+                <p class="card-text">
+                </p>
+                <a
+                  href="#"
+                  class="btn btn-warning"
+                  >View details</a
+                >
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
       <div class="card mx-auto d-block text-left">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Trainer Matches
@@ -50,23 +79,29 @@
                 alt="..."
               />
               <div class="card-body">
-                <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
+                <h5 class="card-title">
+                  {{ trainer.first_name }} {{ trainer.last_name }}
+                </h5>
                 <p class="card-text">@{{ trainer.username }}</p>
                 <p class="card-text">
                   I am passionate about health and fitness and enjoy helping
                   others reach their goals.
                 </p>
-                <a href="{{ url_for('users.trainer', trainer_id=trainer.id) }}" class="btn btn-warning">View Profile</a>
+                <a
+                  href="{{ url_for('users.trainer', trainer_id=trainer.id) }}"
+                  class="btn btn-warning"
+                  >View Profile</a
+                >
               </div>
             </div>
           </div>
           {% endfor %}
         </div>
-        <div class="card-body text-left">
+        <!-- <div class="card-body text-left">
           <a href="#" class="card-link text-warning"
             >View all trainer matches</a
           >
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
