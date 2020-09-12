@@ -6,11 +6,11 @@ from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Trainee.query.get(user_id)
+    return User.query.get(user_id)
 
-class Trainee(db.Model,UserMixin):
+class User(db.Model,UserMixin):
 
-    __tablename__ = 'trainees'
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
     profile_image = db.Column(db.String(20),nullable=False,default='default_profile.png')
@@ -45,26 +45,23 @@ class Trainee(db.Model,UserMixin):
         return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
-        return f"Trainee Username: {self.username}"
+        return f"User Username: {self.username}"
 
 class Reservation(db.Model):
 
     __tablename__ = 'reservations'
 
-    trainees = db.relationship(Trainee)
     id = db.Column(db.Integer, primary_key=True)
-    trainee_id = db.Column(db.Integer,db.ForeignKey('trainees.id'),nullable=False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
     trainer_id = db.Column(db.Integer,nullable=False)
     location = db.Column(db.String(64), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False, unique=True)
 
-    def __init__(self,location,start_time,trainee_id, trainer_id):
-        # self.date = date
+    def __init__(self,location,start_time,user_id,trainer_id):
         self.location = location
         self.start_time = start_time
-        self.trainee_id = trainee_id
+        self.user_id = user_id
         self.trainer_id = trainer_id
-        # self.trainer_id = trainer_id
 
     def __repr__(self):
         return f"Reservation ID {self.id} -- Location: {self.location}"

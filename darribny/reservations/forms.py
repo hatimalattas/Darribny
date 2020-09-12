@@ -7,5 +7,5 @@ class ReservationForm(FlaskForm):
     # no empty titles or text possible
     # we'll grab the date automatically from the Model later
     location = StringField('Location', validators=[DataRequired()])
-    start_time = DateField('Birthdate', format='%Y-%m-%d',validators=[DataRequired()])
-    submit = SubmitField('')
+    start_time = DateField('Date', format='%Y-%m-%d',validators=[DataRequired()])
+    submit = SubmitField('Submit!')

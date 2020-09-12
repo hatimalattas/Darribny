@@ -10,7 +10,7 @@ from flask_wtf.file import FileField, FileAllowed
 
 # User Based Imports
 from flask_login import current_user
-from darribny.models import Trainee
+from darribny.models import User
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(message='Email is required!'),Email()])
@@ -50,12 +50,12 @@ class RegistrationForm(FlaskForm):
 
     def validate_email(self, field):
         # Check if not None for that user email!
-        if Trainee.query.filter_by(email=field.data).first():
+        if User.query.filter_by(email=field.data).first():
             raise ValidationError('Your email has been registered already!')
 
     def validate_username(self, field):
         # Check if not None for that username!
-        if Trainee.query.filter_by(username=field.data).first():
+        if User.query.filter_by(username=field.data).first():
             raise ValidationError('Sorry, that username is taken!')
 
     def validate_mobile(self, field):
@@ -78,10 +78,10 @@ class UpdateUserForm(FlaskForm):
 
     def validate_email(self, email):
         if email.data != current_user.email:
-            if Trainee.query.filter_by(email=email.data).first():
+            if User.query.filter_by(email=email.data).first():
                 raise ValidationError('Email has been registered')
 
     def validate_username(self, username):
         if username.data != current_user.username:
-            if Trainee.query.filter_by(username=username.data).first():
+            if User.query.filter_by(username=username.data).first():
                 raise ValidationError('Username has been registered')

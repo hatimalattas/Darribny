@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from darribny import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from darribny.models import Trainee, Reservation
+from darribny.models import User, Reservation
 from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm
 from darribny.users.picture_handler import add_profile_pic
 
@@ -15,7 +15,7 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        trainee = Trainee(email=form.email.data,
+        trainee = User(email=form.email.data,
                           username=form.username.data,
                           first_name=form.first_name.data,
                           last_name=form.last_name.data,
@@ -46,7 +46,7 @@ def login():
 
     if form.validate_on_submit():
         # Grab the user from our User Models table
-        trainee = Trainee.query.filter_by(
+        trainee = User.query.filter_by(
             email=form.email.data, role='trainee').first()
         # Check that the user was supplied and the password is right
         # The verify_password method comes from the User object
@@ -79,7 +79,7 @@ def login_trainer():
 
     if form.validate_on_submit():
         # Grab the user from our User Models table
-        trainee = Trainee.query.filter_by(
+        trainee = User.query.filter_by(
             email=form.email.data, role='trainer').first()
         # Check that the user was supplied and the password is right
         # The verify_password method comes from the User object
@@ -113,7 +113,7 @@ def logout():
 
 
 ################################
-######## Trainees Views ########
+######## Users Views ########
 ################################
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
@@ -155,9 +155,38 @@ def account():
 def dashboard():
     if current_user.role == 'trainee':
 
-        trainers = Trainee.query.filter_by(role='trainer').all()
-        reservations = Reservation.query.filter_by(trainee_id=current_user.id).all()
-        print(reservations)
+        trainers = User.query.filter_by(role='trainer').all()
+        reservations = Reservation.query.filter_by(user_id=current_user.id)
+        
+        # result = User.query.join(Reservation).filter(Reservation.trainee_id == current_user)
+        # for row in result:
+        #     for res in row.reservations:
+        #         print (row.id, row.first_name, res.trainer_id, res.location)
+
+        # result = Reservation.query.join(User).filter(Reservation.trainer_id == User.id)
+        # print(result)
+        # for row in result:
+        #     for res in row.reservations:
+        #         print (row.id, row.first_name, res.trainer_id, res.location)
+
+        # trainee = User.query.filter_by(id=current_user.id).first()
+        # trainee_reservations = trainee.reservations
+        # reservation_trainer_id = trainee_reservations[0].trainer_id
+        # print(reservation_trainer_id)
+
+        # for reservation in trainee_reservations:
+        #     print(reservation.location)
+
+        # reservation_trainer = User.query.filter_by(id=trainee_reservations.reservations[0].trainer_id).first()
+        # print(reservation_trainer.role)
+
+        # reservation = Reservation.query.filter_by(trainer_id=2).first()
+        # print(reservation.trainee.role)
+
+        # print(trainee.reservations)
+
+        # reservations = Reservation.query.filter_by(trainee_id=current_user.id).all()
+        # print(reservations)
     
         return render_template('dashboard.html', trainers=trainers, reservations=reservations)
 
@@ -172,7 +201,7 @@ def dashboard():
 @login_required
 def trainer(trainer_id):
     # grab the requested blog post by id number or return 404
-    trainer = Trainee.query.filter_by(role='trainer', id=trainer_id).first()
+    trainer = User.query.filter_by(role='trainer', id=trainer_id).first()
     return render_template('trainer-profile.html', first_name=trainer.first_name, last_name=trainer.last_name, profile_image=trainer.profile_image, username=trainer.username, birthdate=trainer.birthdate, gender=trainer.gender, city=trainer.city, mobile=trainer.mobile, id=trainer.id)
 
 

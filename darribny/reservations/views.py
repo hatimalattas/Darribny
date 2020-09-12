@@ -15,7 +15,7 @@ def create(trainer_id):
 
         reservation = Reservation(start_time=form.start_time.data,
                              location=form.location.data,
-                             trainee_id=current_user.id,
+                             user_id=current_user.id,
                              trainer_id=trainer_id
                              )
         db.session.add(reservation)
