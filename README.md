@@ -1,5 +1,5 @@
-# Casting Agency API
-Darribny is a platform where trainers can connect with trainees
+# Darribny
+Darribny is a platform where trainers can connect with trainees. As a trainee, you can request a training session. When a nearby trainer accepts your request, the app displays the reservation time and location.
 
 ## Getting Started
 
