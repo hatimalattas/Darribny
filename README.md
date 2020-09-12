@@ -23,6 +23,17 @@ pip install -r requirements.txt
 
 This will install all of the required packages we selected within the `requirements.txt` file.
 
+### Tech Stack
+
+Our tech stack will include:
+
+* **SQLAlchemy ORM** to be our ORM library of choice
+* **Flask-Login** to be our user session management library of choice
+* **PostgreSQL** as our database of choice
+* **Python3** and **Flask** as our server language and server framework
+* **Flask-Migrate** for creating and running schema migrations
+* **HTML**, **CSS**, and **Javascript** with [Bootstrap 4] for our website's frontend
+
 ## Running the server
 
 From within the root directory first ensure you are working using your created virtual environment.
