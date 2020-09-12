@@ -13,16 +13,6 @@ Follow instructions to install the latest version of python for your platform in
 
 We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 
-#### PIP Dependencies
-
-Once you have your virtual environment setup and running, install dependencies by naviging to the root directory of this project and running:
-
-```bash
-pip install -r requirements.txt
-```
-
-This will install all of the required packages we selected within the `requirements.txt` file.
-
 ### Tech Stack
 
 Our tech stack will include:
@@ -33,6 +23,16 @@ Our tech stack will include:
 * **Python3** and **Flask** as our server language and server framework
 * **Flask-Migrate** for creating and running schema migrations
 * **HTML**, **CSS**, and **Javascript** with [Bootstrap 4] for our website's frontend
+
+#### PIP Dependencies
+
+Once you have your virtual environment setup and running, install dependencies by naviging to the root directory of this project and running:
+
+```bash
+pip install -r requirements.txt
+```
+
+This will install all of the required packages we selected within the `requirements.txt` file.
 
 ## Running the server
 
