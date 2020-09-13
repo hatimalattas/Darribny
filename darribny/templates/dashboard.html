@@ -18,7 +18,9 @@
                 {{current_user.first_name}} {{current_user.last_name}}
               </h5>
               <p class="card-text">@{{current_user.username}}</p>
-              <p class="card-text">This is my personal bio.</p>
+              <p class="card-text">
+                {% if current_user.bio %} {{ current_user.bio }} {% endif %}
+              </p>
             </div>
           </div>
 
@@ -50,21 +52,15 @@
                   {{ reservation.location }} {{ reservation.start_time }}
                 </h5>
                 <p class="card-text"></p>
-                <p class="card-text">
-                </p>
-                <a
-                  href="#"
-                  class="btn btn-warning"
-                  >View details</a
-                >
+                <p class="card-text"></p>
+                <a href="#" class="btn btn-warning">View details</a>
               </div>
             </div>
           </div>
           {% endfor %}
         </div>
       </div>
-      {% endif %}
-
+      {% endif %} {% if current_user.role == 'trainee' %}
       <div class="card mx-auto d-block text-left">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Trainer Matches
@@ -84,8 +80,7 @@
                 </h5>
                 <p class="card-text">@{{ trainer.username }}</p>
                 <p class="card-text">
-                  I am passionate about health and fitness and enjoy helping
-                  others reach their goals.
+                  {% if trainer.bio %} {{ trainer.bio }} {% endif %}
                 </p>
                 <a
                   href="{{ url_for('users.trainer', trainer_id=trainer.id) }}"
@@ -103,6 +98,7 @@
           >
         </div> -->
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

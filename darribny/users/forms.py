@@ -85,3 +85,11 @@ class UpdateUserForm(FlaskForm):
         if username.data != current_user.username:
             if User.query.filter_by(username=username.data).first():
                 raise ValidationError('Username has been registered')
+
+    def validate_mobile(self, mobile):
+        # Check if not None for that username!
+        if len(mobile.data) != 10:
+            raise ValidationError('Invalid mobile number!')
+        if mobile.data != current_user.mobile:
+            if User.query.filter_by(mobile=mobile.data).first():
+                raise ValidationError('Mobile number has been registered') 
