@@ -116,7 +116,19 @@ def dashboard():
     if current_user.role == 'trainee':
         trainers = User.query.filter_by(role='trainer').all()
         reservations = Reservation.query.filter_by(user_id=current_user.id)
-        return render_template('dashboard.html', trainers=trainers, reservations=reservations)
+        data=[]
+        for reservation in reservations:
+            trainer_id = reservation.trainer_id
+            trainer=User.query.filter_by(id=trainer_id).first()
+            data.append({
+                "id": reservation.id,
+                "trainer_first_name": trainer.first_name,
+                "trainer_last_name": trainer.last_name,
+                "location": reservation.location,
+                "start_time":reservation.start_time
+            })
+            print(data)
+        return render_template('dashboard.html', trainers=trainers, reservations=data)
 
     elif current_user.role == 'trainer':
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)

@@ -23,4 +23,4 @@ def create(trainer_id):
         flash('Reservation Confirmed', 'success')
         return redirect(url_for('users.dashboard'))
 
-    return render_template('create-reservation.html',form=form)
+    return render_template('reservation.html',form=form)

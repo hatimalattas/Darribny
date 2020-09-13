@@ -21,6 +21,9 @@
               <p class="card-text">
                 {% if current_user.bio %} {{ current_user.bio }} {% endif %}
               </p>
+              <p class="card-text">
+                {{ current_user.role }}
+              </p>
             </div>
           </div>
 
@@ -49,10 +52,17 @@
             <div class="card mx-auto d-block text-left w-100">
               <div class="card-body">
                 <h5 class="card-title">
-                  {{ reservation.location }} {{ reservation.start_time }}
+                  {% if current_user.role=='trainee' %}
+                  <p class="card-text"> with {{ reservation.trainer_first_name }} {{ reservation.trainer_last_name }}</p>
+                  <p class="card-text">Time: {{ reservation.start_time }}</p>
+                  <p class="card-text">Location: {{ reservation.location }}</p>
+                  {% endif %}
+                  {% if current_user.role=='trainer' %}
+                  <p class="card-text"> with {{ reservation.trainee.first_name }} {{ reservation.trainee.last_name }}</p>
+                  <p class="card-text">Time: {{ reservation.start_time }}</p>
+                  <p class="card-text">Location: {{ reservation.location }}</p>
+                  {% endif %}
                 </h5>
-                <p class="card-text"></p>
-                <p class="card-text"></p>
                 <a href="#" class="btn btn-warning">View details</a>
               </div>
             </div>
@@ -70,7 +80,7 @@
           <div class="col-md-6 col-sm-12">
             <div class="card mx-auto d-block text-left w-100">
               <img
-                src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
+                src="{{ url_for('static', filename='profile_pics/' + trainer.profile_image) }}"
                 class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1"
                 alt="..."
               />
