@@ -26,6 +26,7 @@ class User(db.Model,UserMixin):
     role = db.Column(db.String(64), nullable=False, default='trainee')
     price = db.Column(db.Integer,nullable=False, default=50)
     bio = db.Column(db.Text)
+
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)
 
     def __init__(self,email,username,password,birthdate, first_name, last_name, gender, city, mobile, role):
@@ -40,12 +41,9 @@ class User(db.Model,UserMixin):
         self.mobile = mobile
         self.role = role
 
-
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
 
-    def __repr__(self):
-        return f"User Username: {self.username}"
 
 class Reservation(db.Model):
 
@@ -56,6 +54,10 @@ class Reservation(db.Model):
     trainer_id = db.Column(db.Integer,nullable=False)
     location = db.Column(db.String(64), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False, unique=True)
+    end_time = db.Column(db.DateTime, nullable=False, unique=True)
+    status = db.Column(db.String(64), nullable=False, default='pending')
+
+    reviews = db.relationship('Review',backref='reservations',lazy=True)
 
     def __init__(self,location,start_time,user_id,trainer_id):
         self.location = location
@@ -63,6 +65,17 @@ class Reservation(db.Model):
         self.user_id = user_id
         self.trainer_id = trainer_id
 
-    def __repr__(self):
-        return f"Reservation ID {self.id} -- Location: {self.location}"
+class Review(db.Model):
+
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer, primary_key=True)
+    reservation_id = db.Column(db.Integer,db.ForeignKey('reservations.id'),nullable=False)
+    rating = db.Column(db.Integer,nullable=False)
+    comment = db.Column(db.Text)
+
+    def __init__(self,reservation_id,rating,comment):
+        self.reservation_id = reservation_id
+        self.rating = rating
+        self.comment = comment
 

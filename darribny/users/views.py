@@ -116,6 +116,7 @@ def dashboard():
     if current_user.role == 'trainee':
         trainers = User.query.filter_by(role='trainer').all()
         reservations = Reservation.query.filter_by(user_id=current_user.id)
+
         data=[]
         for reservation in reservations:
             trainer_id = reservation.trainer_id
@@ -127,7 +128,6 @@ def dashboard():
                 "location": reservation.location,
                 "start_time":reservation.start_time
             })
-            print(data)
         return render_template('dashboard.html', trainers=trainers, reservations=data)
 
     elif current_user.role == 'trainer':
@@ -136,7 +136,7 @@ def dashboard():
 
 # int: makes sure that the trainer_id gets passed as in integer
 # instead of a string so we can look it up later.
-@users.route('/dashboard/<int:trainer_id>')
+@users.route('/<int:trainer_id>')
 @login_required
 def trainer(trainer_id):
     # grab the requested blog post by id number or return 404

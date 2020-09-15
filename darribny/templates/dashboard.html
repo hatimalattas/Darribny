@@ -53,17 +53,17 @@
               <div class="card-body">
                 <h5 class="card-title">
                   {% if current_user.role=='trainee' %}
-                  <p class="card-text"> with {{ reservation.trainer_first_name }} {{ reservation.trainer_last_name }}</p>
+                  <p class="card-text"> With {{ reservation.trainer_first_name }} {{ reservation.trainer_last_name }}</p>
                   <p class="card-text">Time: {{ reservation.start_time }}</p>
                   <p class="card-text">Location: {{ reservation.location }}</p>
                   {% endif %}
                   {% if current_user.role=='trainer' %}
-                  <p class="card-text"> with {{ reservation.trainee.first_name }} {{ reservation.trainee.last_name }}</p>
+                  <p class="card-text">With {{ reservation.trainee.first_name }} {{ reservation.trainee.last_name }}</p>
                   <p class="card-text">Time: {{ reservation.start_time }}</p>
                   <p class="card-text">Location: {{ reservation.location }}</p>
                   {% endif %}
                 </h5>
-                <a href="#" class="btn btn-warning">View details</a>
+                <a href="{{ url_for('reservations.reservation', reservation_id=reservation.id) }}" class="btn btn-warning">View details</a>
               </div>
             </div>
           </div>
