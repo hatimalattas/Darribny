@@ -4,7 +4,7 @@ from wtforms import (StringField, BooleanField, DateTimeField,
                      RadioField,SelectField,TextField,
                      TextAreaField,SubmitField,IntegerField,PasswordField)
 from wtforms.fields.html5 import DateField, DateTimeField
-from wtforms.validators import DataRequired,Email,EqualTo,AnyOf, NumberRange, Length
+from wtforms.validators import DataRequired,Email,EqualTo,AnyOf,NumberRange,Length
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 

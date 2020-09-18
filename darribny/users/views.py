@@ -126,7 +126,8 @@ def dashboard():
                 "trainer_first_name": trainer.first_name,
                 "trainer_last_name": trainer.last_name,
                 "location": reservation.location,
-                "start_time":reservation.start_time
+                "start_time":reservation.start_time,
+                "status": reservation.status
             })
         return render_template('dashboard.html', trainers=trainers, reservations=data)
 
@@ -134,11 +135,11 @@ def dashboard():
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)
         return render_template('dashboard.html', reservations=reservations)
 
-# int: makes sure that the trainer_id gets passed as in integer
+# int: makes sure that the user_id gets passed as in integer
 # instead of a string so we can look it up later.
-@users.route('/<int:trainer_id>')
+@users.route('/<int:user_id>')
 @login_required
-def trainer(trainer_id):
-    # grab the requested blog post by id number or return 404
-    trainer = User.query.filter_by(role='trainer', id=trainer_id).first()
-    return render_template('profile.html', first_name=trainer.first_name, last_name=trainer.last_name, profile_image=trainer.profile_image, username=trainer.username, birthdate=trainer.birthdate, gender=trainer.gender, city=trainer.city, mobile=trainer.mobile, id=trainer.id)
+def user(user_id):
+    # grab the requested user by id number
+    user = User.query.filter_by(id=user_id).first()
+    return render_template('profile.html', user=user)

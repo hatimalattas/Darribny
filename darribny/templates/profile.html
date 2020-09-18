@@ -3,6 +3,7 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-6 text-left">
     <div class="card mt-3 mb-3">
+      {% if user.role == 'trainer' %}
       <div class="card-header font-weight-bolder bg-dark text-light">
         <a
           href="{{ url_for('users.dashboard') }}"
@@ -12,39 +13,53 @@
         ></a>
         Trainer Profile
       </div>
+      {% endif %}
+      {% if user.role == 'trainee' %}
+      <div class="card-header font-weight-bolder bg-dark text-light">
+        <a
+          href="{{ url_for('users.dashboard') }}"
+          class=""
+          style="text-decoration: none"
+          ><i class="icon-arrow-left-circle mr-3 text-warning h5"></i
+        ></a>
+        Trainer Profile
+      </div>
+      {% endif %}
       <img
-        src="{{ url_for('static', filename='profile_pics/' + profile_image) }}"
+        src="{{ url_for('static', filename='profile_pics/' + user.profile_image) }}"
         class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
         alt="..."
       />
       <div class="card-body">
-        <h5 class="card-title">{{ first_name }} {{ last_name }}</h5>
+        <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           <i class="icon-screen-smartphone mr-3 text-warning h6"></i>
-          {{ mobile }}
+          {{ user.mobile }}
         </li>
         <li class="list-group-item">
           <i class="icon-location-pin mr-3 text-warning h6"></i>
-          {{ city }}
+          {{ user.city }}
         </li>
         <li class="list-group-item">
           <i class="icon-user mr-3 text-warning h6"></i>
-          {{ gender }}
+          {{ user.gender }}
         </li>
         <li class="list-group-item">
-          <i class="icon-calendar mr-3 text-warning h6"></i>
-          {{ birthdate.strftime('%d-%m-%Y') }}
+          <i class="icon-event mr-3 text-warning h6"></i>
+          {{ user.birthdate.strftime('%d-%m-%Y') }}
         </li>
       </ul>
+      {% if current_user.role == 'trainee' %}
       <div class="card-body text-left">
         <a
-          href="{{ url_for('reservations.create', trainer_id=id) }}"
+          href="{{ url_for('reservations.create', trainer_id=user.id) }}"
           class="btn btn-lg btn-warning"
           >Book Now!</a
         >
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="col-sm-3"></div>

@@ -1,13 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container-fluid bg-light my-container">
   <div class="row">
-    <div class="col-xl-4">
+    <div class="col-lg-4">
       <div class="card text-left mb-3">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Profile Info
         </div>
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-9">
             <img
               src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
               class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1"
@@ -21,26 +21,24 @@
               <p class="card-text">
                 {% if current_user.bio %} {{ current_user.bio }} {% endif %}
               </p>
-              <p class="card-text">
-                {{ current_user.role }}
-              </p>
+              <p class="card-text">{{ current_user.role }}</p>
             </div>
           </div>
 
-          <div class="col-sm-4">
-            <div class="card-body">
+          <div class="col-3">
+            <div class="card-body text-right">
               <a
                 href="{{ url_for('users.account') }}"
-                class="card-link btn btn-sm btn-outline-warning"
-                >Account Settings</a
-              >
+                class="card-link text-decoration-none h4"
+                ><i class="icon-settings text-warning"></i
+              ></a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-xl-8">
+    <div class="col-lg-8">
       {% if reservations %}
       <div class="card mx-auto d-block text-left mb-3">
         <div class="card-header font-weight-bolder bg-dark text-light">
@@ -52,18 +50,59 @@
             <div class="card mx-auto d-block text-left w-100">
               <div class="card-body">
                 <h5 class="card-title">
-                  {% if current_user.role=='trainee' %}
-                  <p class="card-text"> With {{ reservation.trainer_first_name }} {{ reservation.trainer_last_name }}</p>
-                  <p class="card-text">Time: {{ reservation.start_time }}</p>
-                  <p class="card-text">Location: {{ reservation.location }}</p>
-                  {% endif %}
-                  {% if current_user.role=='trainer' %}
-                  <p class="card-text">With {{ reservation.trainee.first_name }} {{ reservation.trainee.last_name }}</p>
-                  <p class="card-text">Time: {{ reservation.start_time }}</p>
-                  <p class="card-text">Location: {{ reservation.location }}</p>
-                  {% endif %}
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                      <i class="icon-user mr-3 text-warning h6"></i>
+                      {% if current_user.role=='trainee' %}
+                        {{ reservation.trainer_first_name }} {{
+                        reservation.trainer_last_name }}
+                      {% endif %}
+                      {% if current_user.role=='trainer' %}
+                        {{ reservation.trainee.first_name }} {{
+                        reservation.trainee.last_name }}
+                      {% endif %}                    
+                    </li>
+                    <li class="list-group-item">
+                      <i class="icon-location-pin mr-3 text-warning h6"></i>
+                      {{ reservation.location }}
+                    </li>
+                    <li class="list-group-item">
+                      <i class="icon-event mr-3 text-warning h6"></i>
+                      {{ reservation.start_time.strftime('%d-%m-%Y') }}
+                    </li>
+                    <li class="list-group-item">
+                      <i class="icon-clock mr-3 text-warning h6"></i>
+                      {{ reservation.start_time.strftime('%H:%M') }}
+                    </li>
+                    {% if reservation.status == 'pending' %}
+                    <li class="list-group-item">
+                      <span class="badge badge-pill badge-secondary"
+                        >{{ reservation.status }}</span
+                      >
+                    </li>
+                    {% endif %}
+                    {% if reservation.status == 'declined' %}
+                    <li class="list-group-item">
+                      <span class="badge badge-pill badge-danger"
+                        >{{ reservation.status }}</span
+                      >
+                    </li>
+                    {% endif %}
+                    {% if reservation.status == 'confirmed' %}
+                    <li class="list-group-item">
+                      <span class="badge badge-pill badge-success"
+                        >{{ reservation.status }}</span
+                      >
+                    </li>
+                    {% endif %}
+                  </ul>
+
                 </h5>
-                <a href="{{ url_for('reservations.reservation', reservation_id=reservation.id) }}" class="btn btn-warning">View details</a>
+                <a
+                  href="{{ url_for('reservations.reservation', reservation_id=reservation.id) }}"
+                  class="btn btn-warning"
+                  >View details</a
+                >
               </div>
             </div>
           </div>
@@ -93,7 +132,7 @@
                   {% if trainer.bio %} {{ trainer.bio }} {% endif %}
                 </p>
                 <a
-                  href="{{ url_for('users.trainer', trainer_id=trainer.id) }}"
+                  href="{{ url_for('users.user', user_id=trainer.id) }}"
                   class="btn btn-warning"
                   >View Profile</a
                 >

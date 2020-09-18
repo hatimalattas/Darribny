@@ -3,12 +3,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__ )
 
 app.config['SECRET_KEY'] = 'mysecret'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LcYjb8ZAAAAAGqHGJsgR4CoJ0qTzmluliAKCl40'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcYjb8ZAAAAAKdzdYdg8zHt-VRYcOgIPG1ozHGL'
+
 
 ##########################
 #### DATABASE SETUP ######
@@ -17,6 +19,8 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+
+Bootstrap(app)
 ###########################
 #### LOGIN CONFIGS #######
 #########################

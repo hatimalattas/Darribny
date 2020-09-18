@@ -59,11 +59,13 @@ class Reservation(db.Model):
 
     reviews = db.relationship('Review',backref='reservations',lazy=True)
 
-    def __init__(self,location,start_time,user_id,trainer_id):
-        self.location = location
-        self.start_time = start_time
+    def __init__(self,location,start_time,user_id,trainer_id, end_time, status):
         self.user_id = user_id
         self.trainer_id = trainer_id
+        self.location = location
+        self.start_time = start_time
+        self.end_time = end_time
+        self.status = status
 
 class Review(db.Model):
 
