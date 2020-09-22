@@ -1,1 +1,1 @@
-web: gunicorn app:darribny
+web: gunicorn app:app
