@@ -127,34 +127,34 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a
-                    class="dropdown-item text-dark mb-3"
+                    class="dropdown-item text-dark"
                     href="{{ url_for('users.dashboard') }}"
                     >Dashboard</a
                   >
                   <a
-                    class="dropdown-item text-dark mb-3"
+                    class="dropdown-item text-dark"
                     href="{{ url_for('users.account') }}"
                     >Account</a
                   >
                   <div class="dropdown-divider"></div>
                   <a
-                    class="dropdown-item text-dark mb-3"
+                    class="dropdown-item text-dark"
                     href="{{ url_for('users.logout') }}"
                     >Logout</a
                   >
                 </div>
               </li>
               {% else %}
-              <li class="nav-item my-auto mb-3">
+              <li class="nav-item my-auto">
                 <a
-                  class="btn btn-outline-warning mb-3"
+                  class="btn btn-outline-warning"
                   href="{{ url_for('users.login') }}"
                   >Log In</a
                 >
               </li>
               <li class="nav-item my-auto">
                 <a
-                  class="btn btn-warning text-light-60 mb-3"
+                  class="btn btn-warning text-light-60"
                   href="{{ url_for('users.register') }}"
                   >Get Started</a
                 >
