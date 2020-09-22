@@ -112,12 +112,6 @@
 
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto ul-nav">
-              <!-- <li class="nav-item my-auto">
-                  <a class="nav-link text-light" href="{{ url_for('core.info') }}"
-                    >About</a
-                  >
-                </li> -->
-
               {% if current_user.is_authenticated %}
               <li class="nav-item dropdown my-auto">
                 <a
@@ -133,37 +127,34 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a
-                    class="dropdown-item text-dark"
+                    class="dropdown-item text-dark mb-3"
                     href="{{ url_for('users.dashboard') }}"
                     >Dashboard</a
                   >
-                  <!-- <a class="dropdown-item text-dark" href="#">Profile</a> -->
                   <a
-                    class="dropdown-item text-dark"
+                    class="dropdown-item text-dark mb-3"
                     href="{{ url_for('users.account') }}"
                     >Account</a
                   >
                   <div class="dropdown-divider"></div>
                   <a
-                    class="dropdown-item text-dark"
+                    class="dropdown-item text-dark mb-3"
                     href="{{ url_for('users.logout') }}"
                     >Logout</a
                   >
                 </div>
               </li>
               {% else %}
-              <li class="nav-item my-auto">
-              </li>
-              <li class="nav-item my-auto">
+              <li class="nav-item my-auto mb-3">
                 <a
-                  class="btn btn-outline-warning"
+                  class="btn btn-outline-warning mb-3"
                   href="{{ url_for('users.login') }}"
                   >Log In</a
                 >
               </li>
               <li class="nav-item my-auto">
                 <a
-                  class="btn btn-warning text-light-60"
+                  class="btn btn-warning text-light-60 mb-3"
                   href="{{ url_for('users.register') }}"
                   >Get Started</a
                 >
