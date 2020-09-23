@@ -13,7 +13,6 @@ app = Flask(__name__ )
 app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 ###########################
 #### LOGIN CONFIGS #######
 #########################
