@@ -17,11 +17,16 @@
               <h5 class="card-title">
                 {{current_user.first_name}} {{current_user.last_name}}
               </h5>
-              <p class="card-text">@{{current_user.username}}</p>
               <p class="card-text">
                 {% if current_user.bio %} {{ current_user.bio }} {% endif %}
               </p>
-              <p class="card-text">{{ current_user.role }}</p>
+              {% if current_user.sports %}
+              <p class="card-text">
+                {% for sport in current_user.sports %}
+                <span class="badge badge-pill badge-warning">{{ sport }}</span>
+                {% endfor %}
+              </p>
+              {% endif %}
             </div>
           </div>
 
@@ -53,14 +58,12 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                       <i class="icon-user mr-3 text-warning h6"></i>
-                      {% if current_user.role=='trainee' %}
-                        {{ reservation.trainer_first_name }} {{
-                        reservation.trainer_last_name }}
-                      {% endif %}
-                      {% if current_user.role=='trainer' %}
-                        {{ reservation.trainee.first_name }} {{
-                        reservation.trainee.last_name }}
-                      {% endif %}                    
+                      {% if current_user.role=='trainee' %} {{
+                      reservation.trainer_first_name }} {{
+                      reservation.trainer_last_name }} {% endif %} {% if
+                      current_user.role=='trainer' %} {{
+                      reservation.trainee.first_name }} {{
+                      reservation.trainee.last_name }} {% endif %}
                     </li>
                     <li class="list-group-item">
                       <i class="icon-location-pin mr-3 text-warning h6"></i>
@@ -80,15 +83,13 @@
                         >{{ reservation.status }}</span
                       >
                     </li>
-                    {% endif %}
-                    {% if reservation.status == 'declined' %}
+                    {% endif %} {% if reservation.status == 'declined' %}
                     <li class="list-group-item">
                       <span class="badge badge-pill badge-danger"
                         >{{ reservation.status }}</span
                       >
                     </li>
-                    {% endif %}
-                    {% if reservation.status == 'confirmed' %}
+                    {% endif %} {% if reservation.status == 'confirmed' %}
                     <li class="list-group-item">
                       <span class="badge badge-pill badge-success"
                         >{{ reservation.status }}</span
@@ -96,7 +97,6 @@
                     </li>
                     {% endif %}
                   </ul>
-
                 </h5>
                 <a
                   href="{{ url_for('reservations.reservation', reservation_id=reservation.id) }}"
@@ -109,7 +109,7 @@
           {% endfor %}
         </div>
       </div>
-      {% endif %} {% if current_user.role == 'trainee' %}
+      {% endif %} {% if current_user.role == 'trainee' %} {% if trainers %}
       <div class="card mx-auto d-block text-left">
         <div class="card-header font-weight-bolder bg-dark text-light">
           Trainer Matches
@@ -127,7 +127,6 @@
                 <h5 class="card-title">
                   {{ trainer.first_name }} {{ trainer.last_name }}
                 </h5>
-                <p class="card-text">@{{ trainer.username }}</p>
                 <p class="card-text">
                   {% if trainer.bio %} {{ trainer.bio }} {% endif %}
                 </p>
@@ -141,13 +140,14 @@
           </div>
           {% endfor %}
         </div>
-        <!-- <div class="card-body text-left">
-          <a href="#" class="card-link text-warning"
-            >View all trainer matches</a
-          >
-        </div> -->
       </div>
-      {% endif %}
+      {% else %}
+      <div class="card mx-auto d-block text-left">
+        <div class="card-header font-weight-bolder bg-dark text-light">
+          We did not find any trainer that matches your profile :(
+        </div>
+      </div>
+      {% endif %} {% endif %}
     </div>
   </div>
 </div>

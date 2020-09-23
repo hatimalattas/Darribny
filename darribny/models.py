@@ -15,7 +15,6 @@ class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     profile_image = db.Column(db.String(20),nullable=False,default='default_profile.png')
     email = db.Column(db.String(64),unique=True,index=True)
-    username = db.Column(db.String(64),unique=True,index=True)
     password_hash = db.Column(db.String(128))
     birthdate = db.Column(db.DateTime, nullable=False)
     first_name = db.Column(db.String(64),nullable=False)
@@ -24,14 +23,14 @@ class User(db.Model,UserMixin):
     city = db.Column(db.String(64),nullable=False)
     mobile = db.Column(db.String(10),unique=True,nullable=False)
     role = db.Column(db.String(64), nullable=False, default='trainee')
-    price = db.Column(db.Integer,nullable=False, default=50)
-    bio = db.Column(db.Text)
+    price = db.Column(db.Integer,nullable=False, default=25)
+    sports = db.Column(db.ARRAY(db.String(120)))
+    bio = db.Column(db.Text, default='Hi there!')
 
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)
 
-    def __init__(self,email,username,password,birthdate, first_name, last_name, gender, city, mobile, role):
+    def __init__(self,email,password,birthdate, first_name, last_name, gender, city, mobile, role):
         self.email = email
-        self.username = username
         self.password_hash = generate_password_hash(password)
         self.birthdate = birthdate
         self.first_name = first_name

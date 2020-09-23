@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block content %} {% from "_render_field.html"
 import render_field %}
 
-<div class="container my-container">
-  <form method="POST" action="" enctype="multipart/form-data">
-    <div class="card mx-auto d-block text-left">
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <div class="card mt-3 mb-3 text-left">
       <div class="card-header font-weight-bolder bg-dark text-light">
         <a
           href="{{ url_for('users.dashboard') }}"
@@ -13,51 +14,46 @@ import render_field %}
         ></a>
         Account Settings
       </div>
-      {{ form.hidden_tag() }}
-      <img
+      <form
+        method="POST"
+        class="m-3 text-left"
+        action=""
+        enctype="multipart/form-data"
+      >
+        {{ form.hidden_tag() }}
+        <img
         src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
         class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
         alt="..."
       />
-      <div class="form-row">
-        <div class="form-group col-3">
-          {{ form.picture(class="input-file") }}
-        </div>
+      <div class="form-group col-3">
+        {{ form.picture(class="input-file") }}
       </div>
+        <div class="form-group">{{ render_field(form.first_name) }}</div>
 
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            {{ render_field(form.first_name) }}
-          </div>
-          <div class="form-group col-md-6">
-            {{ render_field(form.last_name) }}
-          </div>
-        </div>
+        <div class="form-group">{{ render_field(form.last_name) }}</div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6">{{ render_field(form.mobile) }}</div>
+        <div class="form-group">{{ render_field(form.mobile) }}</div>
 
-          <div class="form-group col-md-6">{{ render_field(form.city) }}</div>
-        </div>
+        <div class="form-group">{{ render_field(form.birthdate) }}</div>
 
-        <div class="form-row">
-          <div class="form-group col-md-6">{{ render_field(form.gender) }}</div>
+        <div class="form-group">{{ render_field(form.city) }}</div>
 
-          <div class="form-group col-md-6">
-            {{ render_field(form.birthdate) }}
-          </div>
-        </div>
+        <div class="form-group">{{ render_field(form.gender) }}</div>
 
-        <!-- <div class="form-group">{{ form.recaptcha }}</div> -->
+        <div class="form-group">{{ render_field(form.bio) }}</div>
+
+        <div class="form-group">{{ render_field(form.price) }}</div>
+
+        <div class="form-group">{{ render_field(form.sports) }}</div>
 
         <div class="form-group">
-          {{ form.submit(class="btn btn-warning btn-lg") }}
+          {{ form.submit(class="btn btn-warning btn-lg w-100") }}
         </div>
-      </div>
+      </form>
     </div>
-  </form>
+  </div>
+  <div class="col-1"></div>
 </div>
 
 {% endblock content %}

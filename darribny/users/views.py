@@ -14,7 +14,6 @@ def register():
 
     if form.validate_on_submit():
         trainee = User(email=form.email.data,
-                          username=form.username.data,
                           first_name=form.first_name.data,
                           last_name=form.last_name.data,
                           city=form.city.data,
@@ -93,6 +92,9 @@ def account():
         current_user.gender = form.gender.data
         current_user.city = form.city.data
         current_user.birthdate = form.birthdate.data
+        current_user.bio = form.bio.data
+        current_user.price = form.price.data
+        current_user.sports = form.sports.data
 
         db.session.commit()
         flash('User Account Updated', 'success')
@@ -105,6 +107,9 @@ def account():
         form.city.data = current_user.city
         form.gender.data = current_user.gender
         form.birthdate.data = current_user.birthdate
+        form.bio.data = current_user.bio
+        form.price.data = current_user.price
+        form.sports.data = current_user.sports
 
     profile_image = url_for(
         'static', filename='profile_pics/' + current_user.profile_image)

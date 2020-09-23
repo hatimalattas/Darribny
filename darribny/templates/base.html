@@ -55,8 +55,6 @@
   </head>
 
   <body>
-    <div id="page-container">
-      <div id="content-wrap">
         {% with messages = get_flashed_messages(with_categories=true) %} {% if
         messages %} {% for category, message in messages %} {% if category ==
         'success' %}
@@ -103,9 +101,6 @@
             type="button"
             data-toggle="collapse"
             data-target="#navbarNav"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -147,14 +142,14 @@
               {% else %}
               <li class="nav-item my-auto">
                 <a
-                  class="btn btn-outline-warning"
+                  class="nav-link text-light"
                   href="{{ url_for('users.login') }}"
                   >Log In</a
                 >
               </li>
-              <li class="nav-item my-auto">
+              <li class="nav-item my-auto pt-3 pb-3">
                 <a
-                  class="btn btn-warning text-light-60"
+                  class="btn btn-warning text-dark"
                   href="{{ url_for('users.register') }}"
                   >Get Started</a
                 >
@@ -165,7 +160,6 @@
         </nav>
 
         {% block content %} {% endblock content %}
-      </div>
 
       <!-- Footer -->
       <footer id="footer" class="footer bg-dark">
@@ -197,17 +191,17 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item mr-3">
                   <a href="#">
-                    <i class="fab fa-facebook fa-2x fa-fw text-light"></i>
+                    <i class="fab fa-facebook fa-2x fa-fw text-light pb-3"></i>
                   </a>
                 </li>
                 <li class="list-inline-item mr-3">
                   <a href="#">
-                    <i class="fab fa-twitter-square fa-2x fa-fw text-light"></i>
+                    <i class="fab fa-twitter-square fa-2x fa-fw text-light pb-3"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
                   <a href="#">
-                    <i class="fab fa-instagram fa-2x fa-fw text-light"></i>
+                    <i class="fab fa-instagram fa-2x fa-fw text-light pb-3"></i>
                   </a>
                 </li>
               </ul>
@@ -215,7 +209,6 @@
           </div>
         </div>
       </footer>
-    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
