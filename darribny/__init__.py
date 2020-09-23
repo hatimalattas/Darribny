@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
-from commands import create_tables
 
 app = Flask(__name__ )
 
@@ -14,11 +13,10 @@ app = Flask(__name__ )
 app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-create_tables()
+
 ###########################
 #### LOGIN CONFIGS #######
 #########################
-
 login_manager = LoginManager()
 
 # We can now pass in our app to the login manager
@@ -27,9 +25,7 @@ login_manager.init_app(app)
 # Tell users what view to go to when they need to login.
 login_manager.login_view = "users.login"
 
-
 ##################################################
-
 
 from darribny.core.views import core
 from darribny.users.views import users
