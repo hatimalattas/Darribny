@@ -32,6 +32,7 @@
       />
       <div class="card-body">
         <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
+        <p class="card-text">{{ user.bio }}</p>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -47,9 +48,23 @@
           {{ user.gender }}
         </li>
         <li class="list-group-item">
-          <i class="icon-event mr-3 text-warning h6"></i>
+          <i class="icon-calendar mr-3 text-warning h6"></i>
           {{ user.birthdate.strftime('%d-%m-%Y') }}
         </li>
+        <li class="list-group-item">
+          <i class="icon-energy mr-3 text-warning h6"></i>
+          {% if user.sports %}
+          {% for sport in user.sports %}
+          <span class="badge badge-pill badge-warning">{{ sport }}</span>
+          {% endfor %}
+          {% endif %}
+        </li>
+        {% if user.role == 'trainer' %}
+        <li class="list-group-item">
+          <i class="icon-wallet mr-3 text-warning h6"></i>
+          {{ user.price }} SAR Per Session
+        </li>
+        {% endif %}
       </ul>
       {% if current_user.role == 'trainee' %}
       <div class="card-body text-left">

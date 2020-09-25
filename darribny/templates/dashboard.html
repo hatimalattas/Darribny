@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="row m-lg-1">
+<div class="row m-lg-1 mt-3 mb-3">
   <div class="col-sm-12 col-lg-5">
     <div class="card text-left mt-3 mb-3">
       <div class="card-header font-weight-bolder bg-dark text-light">
@@ -124,6 +124,13 @@
               <h5 class="card-title">
                 {{ trainer.first_name }} {{ trainer.last_name }}
               </h5>
+              {% if trainer.sports %}
+              <p class="card-text">
+                {% for sport in trainer.sports %}
+                <span class="badge badge-pill badge-warning">{{ sport }}</span>
+                {% endfor %}
+              </p>
+              {% endif %}
               <a
                 href="{{ url_for('users.user', user_id=trainer.id) }}"
                 class="btn btn-warning"
