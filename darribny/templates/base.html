@@ -92,7 +92,7 @@
         <nav
           class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark"
         >
-          <a class="navbar-brand text-white" href="{{ url_for('core.index') }}"
+          <a class="navbar-brand text-white ml-md-5" href="{{ url_for('core.index') }}"
             >Darribny</a
           >
 
@@ -108,7 +108,7 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto ul-nav">
               {% if current_user.is_authenticated %}
-              <li class="nav-item dropdown my-auto">
+              <li class="nav-item dropdown my-auto mr-md-5">
                 <a
                   class="nav-link dropdown-toggle text-light"
                   href="#"
@@ -191,17 +191,17 @@
               <ul class="list-inline mb-0">
                 <li class="list-inline-item mr-3">
                   <a href="#">
-                    <i class="fab fa-facebook fa-2x fa-fw text-light pb-3"></i>
+                    <i class="fab fa-facebook fa-2x fa-fw text-light"></i>
                   </a>
                 </li>
                 <li class="list-inline-item mr-3">
                   <a href="#">
-                    <i class="fab fa-twitter-square fa-2x fa-fw text-light pb-3"></i>
+                    <i class="fab fa-twitter-square fa-2x fa-fw text-light"></i>
                   </a>
                 </li>
                 <li class="list-inline-item">
                   <a href="#">
-                    <i class="fab fa-instagram fa-2x fa-fw text-light pb-3"></i>
+                    <i class="fab fa-instagram fa-2x fa-fw text-light"></i>
                   </a>
                 </li>
               </ul>

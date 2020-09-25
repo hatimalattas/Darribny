@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 
 
 class ReservationForm(FlaskForm):
-    start_time = DateTimeField('Book a 60 Minute Session Now! (YYYY-DD-MM HH:MM)', format='%Y-%m-%d %H:%M', validators=[DataRequired()])
+    start_time = DateTimeField('Choose a date and time in this format: YYYY-DD-MM HH:MM', format='%Y-%m-%d %H:%M', validators=[DataRequired()], render_kw={"placeholder": 'YYYY-DD-MM HH:MM'})
     status = SubmitField('Accept')
     status = SubmitField('Decline')
     submit = SubmitField('Book!')

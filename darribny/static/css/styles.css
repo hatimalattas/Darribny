@@ -11,23 +11,6 @@ h6 {
   font-family: "Montserrat-Bold";
 }
 
-/* CSS to make the footer sticks in the bottom */
-/* #page-container {
-  position: relative;
-  min-height: 100vh;
-}
-
-#content-wrap {
-  padding-bottom: 10.5rem;
-}
-
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 10.5rem;
-} */
-
 /* alerts */
 .alert{
   margin-bottom: 0;
@@ -40,20 +23,6 @@ h6 {
   margin-bottom: 10px;
 }
 
-/* Containers */
-
-.container-fluid{
-  padding: 0% 6%;
-}
-
-.login-container {
-  margin-top: 75px;
-  margin-bottom: 145px;
-  text-align: left;
-}
-.my-container{
-  padding: 50px;
-}
 
 li {
   margin-bottom: 10px;
@@ -78,7 +47,6 @@ li {
 }
 
 /* Navigation */
-
 .navbar-brand {
   font-family: "Ubuntu";
   font-size: 2.5rem;
@@ -92,11 +60,6 @@ li {
 .nav-link {
   font-size: 1.2rem;
   font-family: "Montserrat-Light";
-}
-
-/* Buttons */
-.my-btn{
-  width: 400px;
 }
 
 .custom-file-input {

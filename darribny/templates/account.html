@@ -2,8 +2,8 @@
 import render_field %}
 
 <div class="row">
-  <div class="col-1"></div>
-  <div class="col-10">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10">
     <div class="card mt-3 mb-3 text-left">
       <div class="card-header font-weight-bolder bg-dark text-light">
         <a
@@ -24,7 +24,7 @@ import render_field %}
         <img
         src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
         class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
-        alt="..."
+        alt="Profile Picture"
       />
       <div class="form-group col-3">
         {{ form.picture(class="input-file") }}
@@ -53,7 +53,7 @@ import render_field %}
       </form>
     </div>
   </div>
-  <div class="col-1"></div>
+  <div class="col-sm-1"></div>
 </div>
 
 {% endblock content %}

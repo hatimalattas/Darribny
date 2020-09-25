@@ -13,7 +13,7 @@ class User(db.Model,UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    profile_image = db.Column(db.String(20),nullable=False,default='default_profile.png')
+    profile_image = db.Column(db.String(128),nullable=False,default='default_profile.png')
     email = db.Column(db.String(64),unique=True,index=True)
     password_hash = db.Column(db.String(128))
     birthdate = db.Column(db.DateTime, nullable=False)
@@ -28,6 +28,7 @@ class User(db.Model,UserMixin):
     bio = db.Column(db.Text, default='Hi there!')
 
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)
+    favorites = db.relationship('Favorite',backref='trainee',lazy=True)
 
     def __init__(self,email,password,birthdate, first_name, last_name, gender, city, mobile, role):
         self.email = email
@@ -43,6 +44,14 @@ class User(db.Model,UserMixin):
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
 
+
+class Favorite(db.Model):
+
+    __tablename__ = 'favorites'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    status = db.Column(db.Boolean(), nullable=False, default=False)
 
 class Reservation(db.Model):
 
