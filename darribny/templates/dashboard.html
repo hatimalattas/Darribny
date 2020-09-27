@@ -110,7 +110,103 @@
     <div class="card text-left mb-3 mt-3">
       <div class="card-header font-weight-bolder bg-dark text-light">
         Trainer Matches
+        <button
+          data-toggle="modal"
+          data-target="#modal_aside_right"
+          class="btn btn-dark dropdown-toggle float-right p-0"
+          type="button"
+        >
+          <i class="fa fa-filter mr-1" aria-hidden="true"></i> Filter
+        </button>
       </div>
+
+      <div
+        id="modal_aside_right"
+        class="modal fixed-right fade"
+        tabindex="-1"
+        role="dialog"
+      >
+        <div class="modal-dialog modal-dialog-aside" role="document">
+          <div class="modal-content">
+            <form action="">
+              <div class="modal-header bg-dark">
+                <i
+                  class="fa fa-filter mr-2 h6 my-auto text-light"
+                  aria-hidden="true"
+                ></i>
+                <h5 class="modal-title text-light">Filters</h5>
+                <button
+                  type="button"
+                  class="close text-light"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label
+                    for="exampleFormControlSelect1"
+                    class="text-dark font-weight-normal"
+                    >Sports</label
+                  >
+                  <select
+                    class="form-control"
+                    id="exampleFormControlSelect1"
+                    name="sports"
+                  >
+                    <option value="">Any</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="boxing">Boxing</option>
+                    <option value="mma">MMA</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label
+                    for="exampleFormControlSelect1"
+                    class="text-dark font-weight-normal"
+                    >City</label
+                  >
+                  <select
+                    class="form-control"
+                    id="exampleFormControlSelect1"
+                    name="city"
+                  >
+                    <option value="">Any</option>
+                    <option value="jeddah">Jeddah</option>
+                    <option value="riyadh">Riyadh</option>
+                    <option value="dammam">Dammam</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label
+                    for="exampleFormControlSelect1"
+                    class="text-dark font-weight-normal"
+                    >Rating</label
+                  >
+                  <select
+                    class="form-control"
+                    id="exampleFormControlSelect1"
+                    name="rating"
+                  >
+                    <option value="">Any</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Stars</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer bg-dark fixed-bottom">
+                <button type="submit" class="btn btn-warning">Search</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         {% for trainer in trainers %}
         <div class="col-sm-12">
