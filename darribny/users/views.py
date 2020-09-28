@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from darribny import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from darribny.models import User, Reservation
-from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm
+from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm, FilterForm
 from darribny.users.picture_handler import add_profile_pic
 
 users = Blueprint('users', __name__)
@@ -115,14 +115,15 @@ def account():
         'static', filename='profile_pics/' + current_user.profile_image)
     return render_template('account.html', profile_image=profile_image, form=form)
 
-@users.route("/dashboard")
+@users.route("/dashboard", methods=['GET', 'POST'])
 @login_required
 def dashboard():
     if current_user.role == 'trainee':
+        form = FilterForm()
         trainers = User.query.filter_by(role='trainer').all()
-        reservations = Reservation.query.filter_by(user_id=current_user.id)
 
         data=[]
+        reservations = Reservation.query.filter_by(user_id=current_user.id)
         for reservation in reservations:
             trainer_id = reservation.trainer_id
             trainer=User.query.filter_by(id=trainer_id).first()
@@ -134,7 +135,29 @@ def dashboard():
                 "start_time":reservation.start_time,
                 "status": reservation.status
             })
-        return render_template('dashboard.html', trainers=trainers, reservations=data)
+        
+        if request.method == 'POST':
+
+            if form.validate_on_submit():
+
+                if request.form.get('city') and request.form.get('sport') == '':
+                    city = request.form.get('city')
+                    trainers = User.query.filter(User.role == 'trainer', User.city == city).all()
+
+                if request.form.get('sport') and request.form.get('city') == '':
+                    sport = request.form.get('sport')
+                    trainers = User.query.filter(User.role == 'trainer', User.sports.contains(f"{{{sport}}}")).all()
+
+                if request.form.get('city') and request.form.get('sport'):
+                    city = request.form.get('city')
+                    sport = request.form.get('sport')
+                    trainers = User.query.filter(User.role == 'trainer', User.city == city, User.sports.contains(f"{{{sport}}}")).all()
+
+        elif request.method == 'GET':
+            form.city.data = request.form.get('city')
+            form.sport.data = request.form.get('sport')
+
+        return render_template('dashboard.html', trainers=trainers, reservations=data, form=form)
 
     elif current_user.role == 'trainer':
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)

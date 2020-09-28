@@ -2,6 +2,7 @@ from darribny import db,login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy.dialects import postgresql as pg
 
 
 @login_manager.user_loader
@@ -24,7 +25,7 @@ class User(db.Model,UserMixin):
     mobile = db.Column(db.String(10),unique=True,nullable=False)
     role = db.Column(db.String(64), nullable=False, default='trainee')
     price = db.Column(db.Integer,nullable=False, default=25)
-    sports = db.Column(db.ARRAY(db.String(120)))
+    sports = db.Column(pg.ARRAY(db.String(120)))
     bio = db.Column(db.Text, default='Hi there!')
 
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)

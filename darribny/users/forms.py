@@ -79,3 +79,18 @@ class UpdateUserForm(FlaskForm):
         if mobile.data != current_user.mobile:
             if User.query.filter_by(mobile=mobile.data).first():
                 raise ValidationError('Mobile number has been registered')
+
+class FilterForm(FlaskForm):
+    city = SelectField('City',
+                          choices=[('','Any'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')])
+
+    sport = SelectField(
+        'Sport',
+        choices=[
+            ('', 'Any'),
+            ('Cardio', 'Cardio'),
+            ('Boxing', 'Boxing'),
+            ('MMA', 'MMA')
+        ]
+    )
+    submit = SubmitField('Search')
