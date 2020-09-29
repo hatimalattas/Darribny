@@ -2,7 +2,7 @@ from flask import render_template,url_for,flash, redirect,request,Blueprint, abo
 from flask_login import current_user,login_required
 from darribny import db
 from darribny.models import Reservation, User
-from darribny.reservations.forms import ReservationForm, ReservationAccept, ReservationDecline
+from darribny.reservations.forms import ReservationForm
 
 reservations = Blueprint('reservations',__name__)
 
