@@ -21,14 +21,14 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     first_name = StringField('', validators=[DataRequired()],render_kw={"placeholder": 'First Name'})
     last_name = StringField('', validators=[DataRequired()], render_kw={"placeholder": 'Last Name'})
-    mobile = StringField('', validators=[DataRequired()], render_kw={"placeholder": "Mobile (05xxxxxxxx)"})
+    mobile = StringField('Mobile', validators=[DataRequired()], render_kw={"placeholder": "05xxxxxxxx"})
     gender = SelectField('',
                           choices=[('NA','Gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Select a Gender')])
     role = SelectField('',
                           choices=[('NA','Role'),('trainee', 'Trainee'), ('trainer', 'Trainer')], validators= [AnyOf(values=['trainee','trainer'], message='Select a Role')])
     city = SelectField('',
                           choices=[('NA','City'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Select a City')])  
-    birthdate = DateField('', format='%Y-%m-%d',validators=[DataRequired()], render_kw={"placeholder": 'Birthdate'})
+    birthdate = DateField('Date of Birth', format='%Y-%m-%d',validators=[DataRequired()], render_kw={"placeholder": 'Birthdate'})
     email = StringField('', validators=[DataRequired(message='Email is required!'),Email()],render_kw={"placeholder": 'Email'})
     password = PasswordField('', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')],render_kw={"placeholder": 'Password'})
     pass_confirm = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": 'Confirm Password'})
@@ -54,11 +54,11 @@ class UpdateUserForm(FlaskForm):
                           choices=[('NA','Gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Choose your gender!')])
     city = SelectField('',
                           choices=[('NA','City'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Choose your city!')])    
-    birthdate = DateField('', format='%Y-%m-%d',validators=[DataRequired()])
-    bio = TextAreaField('', render_kw={"placeholder": 'Bio'})
-    price = IntegerField('', render_kw={"placeholder": 'Price Per Session'})
+    birthdate = DateField('Date of Birth', format='%Y-%m-%d',validators=[DataRequired()])
+    bio = TextAreaField('Bio', render_kw={"placeholder": 'Bio'})
+    price = IntegerField('Price Per Session', render_kw={"placeholder": 'Price Per Session'})
     sports = SelectMultipleField(
-        'sports', validators=[DataRequired()],
+        'Sports', validators=[DataRequired()],
         choices=[
             ('Cardio', 'Cardio'),
             ('Boxing', 'Boxing'),

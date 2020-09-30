@@ -3,6 +3,7 @@ from flask_login import current_user,login_required
 from darribny import db
 from darribny.models import Reservation, User
 from darribny.reservations.forms import ReservationForm
+from darribny.reviews.forms import ReveiwForm
 
 reservations = Blueprint('reservations',__name__)
 
@@ -31,19 +32,24 @@ def create(trainer_id):
 @reservations.route('/reservation/<int:reservation_id>', methods=['GET','POST'])
 @login_required
 def reservation(reservation_id):
+
+    form = ReveiwForm()
+
     reservation = Reservation.query.filter_by(id=reservation_id).first()
     trainer_id = reservation.trainer_id
     trainer = User.query.filter_by(id=trainer_id).first()
     trainee = reservation.trainee
 
     if request.method == 'POST':  #this block is only entered when the form is submitted
-        data = request.form.get('status')
-        reservation.status = data
-        db.session.commit()
-        flash('Reservation status has been updated', 'success')
-        return redirect(url_for('users.dashboard'))
 
-    return render_template('reservation.html', reservation=reservation, trainer=trainer, trainee=trainee)
+        data = request.form.get('status')
+        if data:
+            reservation.status = data
+            db.session.commit()
+            flash('Reservation status has been updated', 'success')
+            return redirect(url_for('users.dashboard'))
+
+    return render_template('reservation.html', reservation=reservation, trainer=trainer, trainee=trainee, form=form)
 
 @reservations.route("/<int:reservation_id>/delete", methods=['POST'])
 @login_required
