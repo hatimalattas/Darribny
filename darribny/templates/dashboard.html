@@ -32,8 +32,8 @@ import render_field %}
           <div class="card-body text-center">
             <a
               href="{{ url_for('users.account') }}"
-              class="card-link text-decoration-none h4"
-              ><i class="icon-settings text-warning"></i
+              class="card-link text-decoration-none h4 text-warning"
+              ><i class="icon-settings"></i
             ></a>
           </div>
         </div>
@@ -49,8 +49,8 @@ import render_field %}
       </div>
       <div class="row">
         {% for reservation in reservations %}
-        <div class="col-sm-12">
-          <div class="card mx-auto d-block text-left w-100">
+        <div class="col-sm-12 col-md-6">
+          <div class="card text-left">
             <div class="card-body">
               <h5 class="card-title">
                 <ul class="list-group list-group-flush">
@@ -167,8 +167,8 @@ import render_field %}
       <div class="row">
         {% for trainer in trainers %}
         
-        <div class="col-sm-12">
-          <div class="card mx-auto d-block text-left w-100">
+        <div class="col-sm-12 col-md-6">
+          <div class="card text-left">
             <img
               src="{{ url_for('static', filename='profile_pics/' + trainer.profile_image) }}"
               class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1 profile-image"

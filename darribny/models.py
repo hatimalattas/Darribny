@@ -23,13 +23,14 @@ class User(db.Model,UserMixin):
     gender = db.Column(db.String(64),nullable=False)
     city = db.Column(db.String(64),nullable=False)
     mobile = db.Column(db.String(10),unique=True,nullable=False)
-    role = db.Column(db.String(64), nullable=False, default='trainee')
-    price = db.Column(db.Integer,nullable=False, default=25)
+    role = db.Column(db.String(64), nullable=False)
+    price = db.Column(db.Integer,nullable=False)
     sports = db.Column(pg.ARRAY(db.String(120)))
-    bio = db.Column(db.Text, default='Hi there!')
+    bio = db.Column(db.Text)
 
     reservations = db.relationship('Reservation',backref='trainee',lazy=True)
     favorites = db.relationship('Favorite',backref='trainee',lazy=True)
+    reviews = db.relationship('Review',backref='trainee',lazy=True)
 
     def __init__(self,email,password,birthdate, first_name, last_name, gender, city, mobile, role):
         self.email = email
@@ -44,7 +45,6 @@ class User(db.Model,UserMixin):
 
     def check_password(self,password):
         return check_password_hash(self.password_hash,password)
-
 
 class Favorite(db.Model):
 
@@ -82,11 +82,15 @@ class Review(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     reservation_id = db.Column(db.Integer,db.ForeignKey('reservations.id'),nullable=False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    trainer_id = db.Column(db.Integer,nullable=False)    
     rating = db.Column(db.Integer,nullable=False)
     comment = db.Column(db.Text)
+    status = db.Column(db.Boolean(), nullable=False, default=False)
 
-    def __init__(self,reservation_id,rating,comment):
+    def __init__(self,reservation_id,rating,comment,user_id,trainer_id):
         self.reservation_id = reservation_id
         self.rating = rating
         self.comment = comment
-
+        self.user_id = user_id
+        self.trainer_id = trainer_id

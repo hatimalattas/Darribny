@@ -22,17 +22,44 @@
           style="text-decoration: none"
           ><i class="icon-arrow-left-circle mr-3 text-warning h5"></i
         ></a>
-        Trainer Profile
+        Trainee Profile
       </div>
       {% endif %}
       <img
         src="{{ url_for('static', filename='profile_pics/' + user.profile_image) }}"
-        class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
+        class="card-img-top rounded-circle profile-pic border border-warning m-md-3 profile-image"
         alt="..."
       />
-      <div class="card-body">
+
+      <script type="text/javascript">
+        function file_exists(url) {
+            var http = new XMLHttpRequest();
+            http.open('HEAD', url, false);
+            http.send();
+            return http.status != 404;
+          }
+          var path = "static/profile_pics/";
+          var picName = {{ user.profile_image | tojson }};
+          var exist = file_exists(path+picName);
+
+          var profileImages = document.getElementsByClassName("profile-image");
+          for (var i = 0; i < profileImages.length; i++) {
+            if (exist == false) {
+              profileImages[i].src = "../static/profile_pics/default_profile.png";
+            }
+          }
+      </script>
+
+      <div class="card-body" id="summary">
         <h5 class="card-title">{{ user.first_name }} {{ user.last_name }}</h5>
-        <p class="card-text">{{ user.bio }}</p>
+        <p class="card-text collapse text-justify" id="collapseSummary">{{ user.bio }}</p>
+        <a
+        class="collapsed text-warning"
+        data-toggle="collapse"
+        href="#collapseSummary"
+        aria-expanded="false"
+        aria-controls="collapseSummary"
+      ></a>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -79,4 +106,30 @@
   </div>
   <div class="col-sm-3"></div>
 </div>
+
+<!-- <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div id="summary">
+        <p class="collapse" id="collapseSummary">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          porttitor maximus laoreet. Pellentesque habitant morbi tristique
+          senectus et netus et malesuada fames ac turpis egestas. In hac
+          habitasse platea dictumst. Suspendisse venenatis sollicitudin erat in
+          gravida. Sed eget nisl tristique, commodo lectus sit amet, vulputate
+          sem. Cras porttitor lorem ipsum, sit amet iaculis massa feugiat vitae.
+          Curabitur sapien odio, ullamcorper tincidunt interdum vitae,
+          vestibulum eu neque. Nam leo massa, fringilla eget mauris feugiat,
+          auctor suscipit justo.
+        </p>
+        <a
+          class="collapsed"
+          data-toggle="collapse"
+          href="#collapseSummary"
+          aria-expanded="false"
+          aria-controls="collapseSummary"
+        ></a>
+      </div>
+    </div>
+  </div> -->
 {% endblock content %}

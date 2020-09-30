@@ -11,39 +11,84 @@ h6 {
   font-family: "Montserrat-Bold";
 }
 
-/* Modal  */
-.modal .modal-dialog-aside{ 
-	width: 350px; max-width:80%; height: 100%; margin:0;transform: translate(0); transition: transform .2s;
+/* Read more css  */
+#summary {
+  font-size: 14px;
+  line-height: 1.5;
 }
-.modal .modal-dialog-aside .modal-content{  height: inherit; border:0; border-radius: 0;}
-.modal .modal-dialog-aside .modal-content .modal-body{ overflow-y: auto }
-.modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
-.modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
-.modal.show .modal-dialog-aside{ transform: translateX(0);  }
+
+#summary p.collapse:not(.show) {
+  height: 42px !important;
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+#summary p.collapsing {
+  min-height: 42px !important;
+}
+
+#summary a.collapsed:after {
+  content: "+ Read More";
+}
+
+#summary a:not(.collapsed):after {
+  content: "- Read Less";
+}
+
+/* Modal  */
+.modal .modal-dialog-aside {
+  width: 350px;
+  max-width: 80%;
+  height: 100%;
+  margin: 0;
+  transform: translate(0);
+  transition: transform 0.2s;
+}
+.modal .modal-dialog-aside .modal-content {
+  height: inherit;
+  border: 0;
+  border-radius: 0;
+}
+.modal .modal-dialog-aside .modal-content .modal-body {
+  overflow-y: auto;
+}
+.modal.fixed-left .modal-dialog-aside {
+  margin-left: auto;
+  transform: translateX(100%);
+}
+.modal.fixed-right .modal-dialog-aside {
+  margin-right: auto;
+  transform: translateX(-100%);
+}
+.modal.show .modal-dialog-aside {
+  transform: translateX(0);
+}
 
 /* alerts */
-.alert{
+.alert {
   margin-bottom: 0;
 }
 
 /* Profile picture */
-.profile-pic{
+.profile-pic {
   height: 150px;
   width: 150px;
   margin-bottom: 10px;
 }
-
 
 li {
   margin-bottom: 10px;
   list-style-type: none;
 }
 
-.icon{
+.icon {
   height: 50px;
   width: 50px;
 }
-.icon-sm{
+.icon-sm {
   height: 25px;
   width: 25px;
 }
@@ -79,7 +124,7 @@ li {
   visibility: hidden;
 }
 .custom-file-input::before {
-  content: 'Select some files';
+  content: "Select some files";
   color: black;
   display: inline-block;
   background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
@@ -101,26 +146,26 @@ li {
   outline: 0;
 }
 .custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
-
 
 .input-file-container {
   position: relative;
   width: 225px;
-} 
+}
 .js .input-file-trigger {
   display: block;
   padding: 14px 45px;
-  background: #39D2B4;
+  background: #39d2b4;
   color: #fff;
   font-size: 1em;
-  transition: all .4s;
+  transition: all 0.4s;
   cursor: pointer;
 }
 .js .input-file {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 225px;
   opacity: 0;
   padding: 14px 0;
@@ -130,8 +175,8 @@ li {
 .js .input-file:focus + .input-file-trigger,
 .js .input-file-trigger:hover,
 .js .input-file-trigger:focus {
-  background: #34495E;
-  color: #39D2B4;
+  background: #34495e;
+  color: #39d2b4;
 }
 
 .file-return {
@@ -142,7 +187,7 @@ li {
 }
 .js .file-return {
   font-style: italic;
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: bold;
 }
 .js .file-return:not(:empty):before {

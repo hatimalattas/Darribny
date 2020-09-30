@@ -23,9 +23,27 @@ import render_field %}
         {{ form.hidden_tag() }}
         <img
         src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}"
-        class="card-img-top rounded-circle profile-pic border border-warning m-md-3"
+        class="card-img-top rounded-circle profile-pic border border-warning m-md-3 profile-image"
         alt="Profile Picture"
       />
+      <script type="text/javascript">
+        function file_exists(url) {
+            var http = new XMLHttpRequest();
+            http.open('HEAD', url, false);
+            http.send();
+            return http.status != 404;
+          }
+          var path = "static/profile_pics/";
+          var picName = {{ current_user.profile_image | tojson }};
+          var exist = file_exists(path+picName);
+
+          var profileImages = document.getElementsByClassName("profile-image");
+          for (var i = 0; i < profileImages.length; i++) {
+            if (exist == false) {
+              profileImages[i].src = "../static/profile_pics/default_profile.png";
+            }
+          }
+      </script>
       <div class="form-group col-3">
         {{ form.picture(class="input-file") }}
       </div>
