@@ -122,11 +122,20 @@ def dashboard():
         form = FilterForm()
         trainers = User.query.filter_by(role='trainer').all()
 
+        path = "static/profile_pics/"
+        pics_url = ['9@9.com.jpeg', 'default_profile.png', '1@1.com.jpg']
+        full_pics_url = []
+        for url in pics_url:
+            full_path = path + url
+            full_pics_url.append(full_path)
+
+        print(full_pics_url)
+
         data=[]
         reservations = Reservation.query.filter_by(user_id=current_user.id)
         for reservation in reservations:
             trainer_id = reservation.trainer_id
-            trainer=User.query.filter_by(id=trainer_id).first()
+            trainer = User.query.filter_by(id=trainer_id).first()
             data.append({
                 "id": reservation.id,
                 "trainer_first_name": trainer.first_name,
@@ -135,7 +144,7 @@ def dashboard():
                 "start_time":reservation.start_time,
                 "status": reservation.status
             })
-        
+
         if request.method == 'POST':
 
             if form.validate_on_submit():
@@ -157,7 +166,7 @@ def dashboard():
             form.city.data = request.form.get('city')
             form.sport.data = request.form.get('sport')
 
-        return render_template('dashboard.html', trainers=trainers, reservations=data, form=form)
+        return render_template('dashboard.html', trainers=trainers, reservations=data, form=form, path=path, full_pics_url=full_pics_url)
 
     elif current_user.role == 'trainer':
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)
