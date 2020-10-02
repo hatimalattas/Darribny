@@ -21,7 +21,7 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     first_name = StringField('', validators=[DataRequired()],render_kw={"placeholder": 'First Name'})
     last_name = StringField('', validators=[DataRequired()], render_kw={"placeholder": 'Last Name'})
-    mobile = StringField('Mobile', validators=[DataRequired()], render_kw={"placeholder": "05xxxxxxxx"})
+    mobile = StringField('', validators=[DataRequired()], render_kw={"placeholder": " Mobile 05xxxxxxxx"})
     gender = SelectField('',
                           choices=[('NA','Gender'),('Male', 'Male'), ('Female', 'Female')], validators= [AnyOf(values=['Male','Female'], message='Select a Gender')])
     role = SelectField('',
@@ -30,8 +30,9 @@ class RegistrationForm(FlaskForm):
                           choices=[('NA','City'),('Jeddah', 'Jeddah'), ('Riyadh', 'Riyadh'), ('Dammam', 'Dammam')], validators=[AnyOf(values=['Jeddah','Riyadh','Dammam'], message='Select a City')])  
     birthdate = DateField('Date of Birth', format='%Y-%m-%d',validators=[DataRequired()], render_kw={"placeholder": 'Birthdate'})
     email = StringField('', validators=[DataRequired(message='Email is required!'),Email()],render_kw={"placeholder": 'Email'})
-    password = PasswordField('', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')],render_kw={"placeholder": 'Password'})
-    pass_confirm = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": 'Confirm Password'})
+    password = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": 'Password'})
+    # password = PasswordField('', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')],render_kw={"placeholder": 'Password'})
+    # pass_confirm = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": 'Confirm Password'})
     submit = SubmitField('Register!')
 
     def validate_email(self, field):
@@ -40,7 +41,9 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Your email has been registered already!')
 
     def validate_mobile(self, field):
-        # Check if not None for that username!
+        if User.query.filter_by(mobile=field.data).first():
+            raise ValidationError('Your mobile number has been registered already!')
+
         if len(field.data) != 10:
             raise ValidationError('Invalid mobile number!')
 

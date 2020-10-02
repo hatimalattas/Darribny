@@ -24,7 +24,7 @@ class User(db.Model,UserMixin):
     city = db.Column(db.String(64),nullable=False)
     mobile = db.Column(db.String(10),unique=True,nullable=False)
     role = db.Column(db.String(64), nullable=False)
-    price = db.Column(db.Integer,nullable=False)
+    price = db.Column(db.Integer)
     sports = db.Column(pg.ARRAY(db.String(120)))
     bio = db.Column(db.Text)
 
