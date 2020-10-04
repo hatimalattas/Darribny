@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% block content %} {% from "_render_field.html"
 import render_field %}
 
-<div class="row m-lg-1 mt-3 mb-3">
+<div class="row m-lg-1 mt-1 mb-3">
   <div class="col-sm-12 col-lg-4">
-    <div class="card text-left mt-3 mb-3">
+    <div class="card text-left mt-1 mb-1">
       <div class="card-header font-weight-bolder bg-dark text-light">
         Profile Info
       </div>
@@ -43,7 +43,7 @@ import render_field %}
 
   <div class="col-lg-8">
     {% if reservations %}
-    <div class="card mb-3 mt-3 text-left">
+    <div class="card mb-1 mt-1 text-left">
       <div class="card-header font-weight-bolder bg-dark text-light">
         Upcoming Reservations
       </div>
@@ -108,7 +108,7 @@ import render_field %}
       </div>
     </div>
     {% endif %} {% if current_user.role == 'trainee' %} {% if trainers %}
-    <div class="card text-left mb-3 mt-3">
+    <div class="card text-left mb-1 mt-1">
       <div class="card-header font-weight-bolder bg-dark text-light">
         Trainer Matches {% if request.form %}
         <a
@@ -215,7 +215,7 @@ import render_field %}
       </div>
     </div>
     {% else %}
-    <div class="card text-left mb-3 mt-3">
+    <div class="card text-left mb-1 mt-1">
       <div class="card-header font-weight-bolder bg-dark text-light">
         No Trainers Found :( {% if request.form %}
         <a

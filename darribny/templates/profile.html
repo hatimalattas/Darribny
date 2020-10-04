@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-6 text-left">
-    <div class="card mt-3 mb-3">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 text-left">
+    <div class="card mt-1 mb-1">
       {% if user.role == 'trainer' %}
       <div class="card-header font-weight-bolder bg-dark text-light">
         <a
@@ -102,32 +102,6 @@
       {% endif %}
     </div>
   </div>
-  <div class="col-sm-3"></div>
+  <div class="col-sm-1"></div>
 </div>
-
-<!-- <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div id="summary">
-        <p class="collapse" id="collapseSummary">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-          porttitor maximus laoreet. Pellentesque habitant morbi tristique
-          senectus et netus et malesuada fames ac turpis egestas. In hac
-          habitasse platea dictumst. Suspendisse venenatis sollicitudin erat in
-          gravida. Sed eget nisl tristique, commodo lectus sit amet, vulputate
-          sem. Cras porttitor lorem ipsum, sit amet iaculis massa feugiat vitae.
-          Curabitur sapien odio, ullamcorper tincidunt interdum vitae,
-          vestibulum eu neque. Nam leo massa, fringilla eget mauris feugiat,
-          auctor suscipit justo.
-        </p>
-        <a
-          class="collapsed"
-          data-toggle="collapse"
-          href="#collapseSummary"
-          aria-expanded="false"
-          aria-controls="collapseSummary"
-        ></a>
-      </div>
-    </div>
-  </div> -->
 {% endblock content %}

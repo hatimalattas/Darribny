@@ -27,7 +27,7 @@ def create(trainer_id):
         flash('Reservation Request has been sent to the trainer, please wait for his/her response', 'success')
         return redirect(url_for('users.dashboard'))
 
-    return render_template('create_reservation.html',form=form)
+    return render_template('create_reservation.html',form=form, trainer=trainer)
     
 @reservations.route('/reservation/<int:reservation_id>', methods=['GET','POST'])
 @login_required
