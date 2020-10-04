@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% from "_render_field.html"
 import render_field %}
 
-<div class="row m-lg-1 mt-1 mb-3">
+<div class="row m-lg-1">
   <div class="col-sm-12 col-lg-4">
     <div class="card text-left mt-1 mb-1">
       <div class="card-header font-weight-bolder bg-dark text-light">
@@ -42,7 +42,108 @@ import render_field %}
   </div>
 
   <div class="col-lg-8">
-    {% if reservations %}
+    {% if current_user.role == 'trainee' %} {% if trainers %}
+    <div class="card text-left mb-1 mt-1">
+      <div class="card-header font-weight-bolder bg-dark text-light">
+        Trainer Matches {% if request.form %}
+        <a
+          href="{{ url_for('users.dashboard') }}"
+          class="alert-link float-right ml-3 text-light font-weight-normal"
+          >Clear all</a
+        >
+        {% endif %}
+        <button
+          data-toggle="modal"
+          data-target="#modal_aside_right"
+          class="btn btn-dark dropdown-toggle float-right p-0"
+          type="button"
+        >
+          <i class="fa fa-filter mr-1" aria-hidden="true"></i> Filter
+        </button>
+      </div>
+
+      <div class="row">
+        {% for trainer in trainers %}
+
+        <div class="col-sm-12 col-md-6">
+          <div class="card text-left">
+            <div class="row">
+              <div class="col-8">
+                <img
+                  src="{{ url_for('static', filename='profile_pics/' + trainer.profile_image) }}"
+                  class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1 profile-image"
+                  alt="..."
+                />
+                <script type="text/javascript">
+                  function file_exists(url) {
+                      var http = new XMLHttpRequest();
+                      http.open('HEAD', url, false);
+                      http.send();
+                      return http.status != 404;
+                    }
+                    var path = "static/profile_pics/";
+                    var picName = {{ trainer.profile_image | tojson }};
+                    var exist = file_exists(path+picName);
+
+                    var profileImages = document.getElementsByClassName("profile-image");
+                    for (var i = 0; i < profileImages.length; i++) {
+                      if (exist == false) {
+                        profileImages[i].src = "../static/profile_pics/default_profile.png";
+                      }
+                    }
+                </script>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ trainer.first_name }} {{ trainer.last_name }}
+                  </h5>
+                  {% if trainer.sports %}
+                  <p class="card-text">
+                    {% for sport in trainer.sports %}
+                    <span class="badge badge-pill badge-warning"
+                      >{{ sport }}</span
+                    >
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                  <a
+                    href="{{ url_for('users.user', user_id=trainer.id) }}"
+                    class="btn btn-warning"
+                    >View Profile</a
+                  >
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="card-body text-left">
+                  <i class="fas fa-star text-warning"></i> 4.5
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="card text-left mb-1 mt-1">
+      <div class="card-header font-weight-bolder bg-dark text-light">
+        No Trainers Found :( {% if request.form %}
+        <a
+          href="{{ url_for('users.dashboard') }}"
+          class="alert-link float-right ml-3 text-light font-weight-normal"
+          >Clear all</a
+        >
+        {% endif %}
+        <button
+          data-toggle="modal"
+          data-target="#modal_aside_right"
+          class="btn btn-dark dropdown-toggle float-right p-0"
+          type="button"
+        >
+          <i class="fa fa-filter mr-1" aria-hidden="true"></i> Filter
+        </button>
+      </div>
+    </div>
+    {% endif %} {% endif %} {% if reservations %}
     <div class="card mb-1 mt-1 text-left">
       <div class="card-header font-weight-bolder bg-dark text-light">
         Upcoming Reservations
@@ -107,134 +208,44 @@ import render_field %}
         {% endfor %}
       </div>
     </div>
-    {% endif %} {% if current_user.role == 'trainee' %} {% if trainers %}
-    <div class="card text-left mb-1 mt-1">
-      <div class="card-header font-weight-bolder bg-dark text-light">
-        Trainer Matches {% if request.form %}
-        <a
-          href="{{ url_for('users.dashboard') }}"
-          class="alert-link float-right ml-3 text-light font-weight-normal"
-          >Clear all</a
-        >
-        {% endif %}
-        <button
-          data-toggle="modal"
-          data-target="#modal_aside_right"
-          class="btn btn-dark dropdown-toggle float-right p-0"
-          type="button"
-        >
-          <i class="fa fa-filter mr-1" aria-hidden="true"></i> Filter
-        </button>
-      </div>
+    {% endif %}
+  </div>
+</div>
 
-      <div
-        id="modal_aside_right"
-        class="modal fixed-right fade"
-        tabindex="-1"
-        role="dialog"
-      >
-        <div class="modal-dialog modal-dialog-aside" role="document">
-          <div class="modal-content">
-            <form method="POST">
-              {{ form.hidden_tag() }}
-              <div class="modal-header bg-dark">
-                <i
-                  class="fa fa-filter mr-2 h6 my-auto text-light"
-                  aria-hidden="true"
-                ></i>
-                <h5 class="modal-title text-light">Filters</h5>
-                <button
-                  type="button"
-                  class="close text-light"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="form-group">{{ render_field(form.city) }}</div>
-                <div class="form-group">{{ render_field(form.sport) }}</div>
-              </div>
-              <div class="modal-footer bg-dark fixed-bottom">
-                {{ form.submit(class="btn btn-warning") }}
-              </div>
-            </form>
-          </div>
+<div
+  id="modal_aside_right"
+  class="modal fixed-right fade"
+  tabindex="-1"
+  role="dialog"
+>
+  <div class="modal-dialog modal-dialog-aside" role="document">
+    <div class="modal-content">
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="modal-header bg-dark">
+          <i
+            class="fa fa-filter mr-2 h6 my-auto text-light"
+            aria-hidden="true"
+          ></i>
+          <h5 class="modal-title text-light">Filters</h5>
+          <button
+            type="button"
+            class="close text-light"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-
-      <div class="row">
-        {% for trainer in trainers %}
-        
-        <div class="col-sm-12 col-md-6">
-          <div class="card text-left">
-            <img
-              src="{{ url_for('static', filename='profile_pics/' + trainer.profile_image) }}"
-              class="card-img-top rounded-circle profile-pic border border-warning mt-1 ml-1 profile-image"
-              alt="..."
-            />
-            <script type="text/javascript">
-              function file_exists(url) {
-                  var http = new XMLHttpRequest();
-                  http.open('HEAD', url, false);
-                  http.send();
-                  return http.status != 404;
-                }
-                var path = "static/profile_pics/";
-                var picName = {{ trainer.profile_image | tojson }};
-                var exist = file_exists(path+picName);
-
-                var profileImages = document.getElementsByClassName("profile-image");
-                for (var i = 0; i < profileImages.length; i++) {
-                  if (exist == false) {
-                    profileImages[i].src = "../static/profile_pics/default_profile.png";
-                  }
-                }
-            </script>
-            <div class="card-body">
-              <h5 class="card-title">
-                {{ trainer.first_name }} {{ trainer.last_name }}
-              </h5>
-              {% if trainer.sports %}
-              <p class="card-text">
-                {% for sport in trainer.sports %}
-                <span class="badge badge-pill badge-warning">{{ sport }}</span>
-                {% endfor %}
-              </p>
-              {% endif %}
-              <a
-                href="{{ url_for('users.user', user_id=trainer.id) }}"
-                class="btn btn-warning"
-                >View Profile</a
-              >
-            </div>
-          </div>
+        <div class="modal-body">
+          <div class="form-group">{{ render_field(form.city) }}</div>
+          <div class="form-group">{{ render_field(form.sport) }}</div>
         </div>
-        {% endfor %}
-      </div>
+        <div class="modal-footer bg-dark fixed-bottom">
+          {{ form.submit(class="btn btn-warning") }}
+        </div>
+      </form>
     </div>
-    {% else %}
-    <div class="card text-left mb-1 mt-1">
-      <div class="card-header font-weight-bolder bg-dark text-light">
-        No Trainers Found :( {% if request.form %}
-        <a
-          href="{{ url_for('users.dashboard') }}"
-          class="alert-link float-right ml-3 text-light font-weight-normal"
-          >Clear all</a
-        >
-        {% endif %}
-        <button
-          data-toggle="modal"
-          data-target="#modal_aside_right"
-          class="btn btn-dark dropdown-toggle float-right p-0"
-          type="button"
-        >
-          <i class="fa fa-filter mr-1" aria-hidden="true"></i> Filter
-        </button>
-      </div>
-    </div>
-    {% endif %} {% endif %}
   </div>
 </div>
 {% endblock content %}
