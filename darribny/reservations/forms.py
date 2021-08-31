@@ -1,14 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, ValidationError
-from wtforms.fields.html5 import DateTimeField
-from wtforms.validators import DataRequired
+from wtforms.fields.html5 import DateField, TimeField
 from datetime import datetime
 
 
 class ReservationForm(FlaskForm):
-    start_time = DateTimeField('Choose a date and time in this format: YYYY-DD-MM HH:MM', format='%Y-%m-%d %H:%M', validators=[DataRequired()], render_kw={"placeholder": 'YYYY-DD-MM HH:MM'})
-    submit = SubmitField('Book!')
+    date = DateField("Date")
+    time = TimeField("Time")
+    submit = SubmitField('Book Session!')
 
-    def validate_start_time(self, start_time):
-        if start_time.data < datetime.now():
-            raise ValidationError("Start datetime is invalid.")
+    def validate_date(self, date):
+        if date.data < datetime.now().strftime('%d-%m-%Y'):
+            raise ValidationError("The date you selected is in the past!")

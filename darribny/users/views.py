@@ -8,20 +8,21 @@ from darribny.users.picture_handler import add_profile_pic
 
 users = Blueprint('users', __name__)
 
+
 @users.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
         trainee = User(email=form.email.data,
-                          first_name=form.first_name.data,
-                          last_name=form.last_name.data,
-                          city=form.city.data,
-                          birthdate=form.birthdate.data,
-                          mobile=form.mobile.data,
-                          gender=form.gender.data,
-                          role=form.role.data,
-                          password=form.password.data)
+                       first_name=form.first_name.data,
+                       last_name=form.last_name.data,
+                       city=form.city.data,
+                       birthdate=form.birthdate.data,
+                       mobile=form.mobile.data,
+                       gender=form.gender.data,
+                       role=form.role.data,
+                       password=form.password.data)
 
         db.session.add(trainee)
         db.session.commit()
@@ -29,16 +30,15 @@ def register():
         flash('Thanks for registering! Now you can login!', 'success')
         return redirect(url_for('users.login'))
 
-
     return render_template('register.html', form=form)
+
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
-
     form = LoginForm()
 
     if form.validate_on_submit():
-            # Grab the user from our User Models table
+        # Grab the user from our User Models table
         user = User.query.filter_by(
             email=form.email.data).first()
         # Check that the user was supplied and the password is right
@@ -64,6 +64,7 @@ def login():
 
     return render_template('login.html', form=form)
 
+
 @users.route("/logout")
 def logout():
     logout_user()
@@ -77,7 +78,6 @@ def logout():
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-
     form = UpdateUserForm()
 
     if form.validate_on_submit():
@@ -115,11 +115,12 @@ def account():
         'static', filename='profile_pics/' + current_user.profile_image)
     return render_template('account.html', profile_image=profile_image, form=form)
 
+
 @users.route("/dashboard", methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    form = FilterForm()
     if current_user.role == 'trainee':
-        form = FilterForm()
         trainers = User.query.filter_by(role='trainer').all()
 
         path = "static/profile_pics/"
@@ -129,9 +130,7 @@ def dashboard():
             full_path = path + url
             full_pics_url.append(full_path)
 
-        print(full_pics_url)
-
-        data=[]
+        data = []
         reservations = Reservation.query.filter_by(user_id=current_user.id)
         for reservation in reservations:
             trainer_id = reservation.trainer_id
@@ -141,7 +140,7 @@ def dashboard():
                 "trainer_first_name": trainer.first_name,
                 "trainer_last_name": trainer.last_name,
                 "location": reservation.location,
-                "start_time":reservation.start_time,
+                "start_time": reservation.start_time,
                 "status": reservation.status
             })
 
@@ -160,17 +159,20 @@ def dashboard():
                 if request.form.get('city') and request.form.get('sport'):
                     city = request.form.get('city')
                     sport = request.form.get('sport')
-                    trainers = User.query.filter(User.role == 'trainer', User.city == city, User.sports.contains(f"{{{sport}}}")).all()
+                    trainers = User.query.filter(User.role == 'trainer', User.city == city,
+                                                 User.sports.contains(f"{{{sport}}}")).all()
 
         elif request.method == 'GET':
             form.city.data = request.form.get('city')
             form.sport.data = request.form.get('sport')
 
-        return render_template('dashboard.html', trainers=trainers, reservations=data, form=form, path=path, full_pics_url=full_pics_url)
+        return render_template('dashboard.html', trainers=trainers, reservations=data, form=form, path=path,
+                               full_pics_url=full_pics_url)
 
     elif current_user.role == 'trainer':
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)
-        return render_template('dashboard.html', reservations=reservations)
+        return render_template('dashboard.html', reservations=reservations, form=form)
+
 
 # int: makes sure that the user_id gets passed as in integer
 # instead of a string so we can look it up later.
