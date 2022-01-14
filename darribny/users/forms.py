@@ -1,9 +1,9 @@
 # Form Based Imports
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import (StringField, BooleanField, DateTimeField,
-                     RadioField, SelectField, TextField,
-                     TextAreaField, SubmitField, IntegerField, PasswordField, SelectMultipleField)
-from wtforms.fields.html5 import DateField, DateTimeField
+                     RadioField, SelectField, TextAreaField,
+                     SubmitField, IntegerField, PasswordField, SelectMultipleField)
+from wtforms.fields import DateField, DateTimeField
 from wtforms.validators import DataRequired, Email, EqualTo, AnyOf, NumberRange, Length
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
@@ -37,10 +37,9 @@ class RegistrationForm(FlaskForm):
                           render_kw={"placeholder": 'Birthdate'})
     email = StringField('', validators=[DataRequired(message='Email is required!'), Email()],
                         render_kw={"placeholder": 'Email'})
-    # password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": 'Password'})
     password = PasswordField('', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')],
                              render_kw={"placeholder": 'Password'})
-    pass_confirm = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": 'Confirm Password'})
+    pass_confirm = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": 'Confirm Password'})
     submit = SubmitField('Register!')
 
     def validate_email(self, field):

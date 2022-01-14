@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from darribny.models import User, Reservation
 from darribny.users.forms import RegistrationForm, LoginForm, UpdateUserForm, FilterForm
 from darribny.users.picture_handler import add_profile_pic
+from datetime import datetime
 
 users = Blueprint('users', __name__)
 
@@ -120,6 +121,9 @@ def account():
 @login_required
 def dashboard():
     form = FilterForm()
+    time_now = datetime.now()
+    
+    # Trainee dashboard
     if current_user.role == 'trainee':
         trainers = User.query.filter_by(role='trainer').all()
 
@@ -132,6 +136,7 @@ def dashboard():
 
         data = []
         reservations = Reservation.query.filter_by(user_id=current_user.id)
+        reservations = reservations.filter(Reservation.end_time > time_now).all()
         for reservation in reservations:
             trainer_id = reservation.trainer_id
             trainer = User.query.filter_by(id=trainer_id).first()
@@ -144,6 +149,7 @@ def dashboard():
                 "status": reservation.status
             })
 
+        # Filter system
         if request.method == 'POST':
 
             if form.validate_on_submit():
@@ -169,8 +175,10 @@ def dashboard():
         return render_template('dashboard.html', trainers=trainers, reservations=data, form=form, path=path,
                                full_pics_url=full_pics_url)
 
+    # Trainer dashboard
     elif current_user.role == 'trainer':
         reservations = Reservation.query.filter_by(trainer_id=current_user.id)
+        reservations = reservations.filter(Reservation.end_time > time_now).all()
         return render_template('dashboard.html', reservations=reservations, form=form)
 
 
