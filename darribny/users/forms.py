@@ -37,7 +37,6 @@ class RegistrationForm(FlaskForm):
                           render_kw={"placeholder": 'Birthdate'})
     email = StringField('', validators=[DataRequired(message='Email is required!'), Email()],
                         render_kw={"placeholder": 'Email'})
-    # password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": 'Password'})
     password = PasswordField('', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')],
                              render_kw={"placeholder": 'Password'})
     pass_confirm = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": 'Confirm Password'})
