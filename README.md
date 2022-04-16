@@ -36,11 +36,48 @@ pip install -r requirements.txt
 This will install all of the required packages we selected within the `requirements.txt` file.
 
 ## Running the server
+Make sure you have a postgres server running. export the DATABASE_URL by running:
+```bash
+export DATABASE_URL=postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName
+```
 
 From within the root directory first ensure you are working using your created virtual environment.
 
 To run the server, execute:
 
 ```bash
+python db_create.py
 python app.py
 ```
+
+## Running the server with Docker Compose
+Alternative way to run the server is by using docker compose. use the `docker-compose.yaml` file in this project.
+
+From within the root directory, execute:
+
+```bash
+docker-compose up
+```
+Now the python app and postgres server have been created and started.
+
+then, execute:
+
+```bash
+docker container exec -it {app_container_id} /bin/sh
+```
+
+This will let you run commands in the python app container.
+
+To get containers IDs, run:
+
+```bash
+docker container ls -a
+```
+
+Execute this command within the python app container to create the database
+
+```bash
+python db_create.py
+```
+
+Now the app is running and the database had been created.
