@@ -18,6 +18,7 @@ We recommend working within a virtual environment whenever using Python for proj
 Our tech stack will include:
 
 * **SQLAlchemy ORM** to be our ORM library of choice
+* **Flask-Script** to provide support for writing external scripts in Flask
 * **Flask-Login** to be our user session management library of choice
 * **PostgreSQL** as our database of choice
 * **Python3** and **Flask** as our server language and server framework
