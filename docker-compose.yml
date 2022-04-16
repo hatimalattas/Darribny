@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    image: hatimalattas/darribny:1.0
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypasswd@darribny-db:5432/darribnydb
+    ports:
+      - 4000:4000
+    depends_on:
+      - darribny-db
+
+  darribny-db:
+    image: postgres:14.1
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mypasswd
+      - POSTGRES_DB=darribnydb
+
+    ports:
+      - 5432:5432
+    volumes:
+      - darribny-data:/var/lib/postgresql/data
+
+volumes:
+  darribny-data: {}
